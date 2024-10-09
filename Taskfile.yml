@@ -1,0 +1,11 @@
+version: '3'
+
+tasks:
+  code-check:
+    desc: Check code style inconsistencies
+    cmds:
+      - mvn spotless:check
+  code-format:
+    desc: Check code style inconsistencies and apply fixes
+    cmds:
+      - mvn spotless:apply
