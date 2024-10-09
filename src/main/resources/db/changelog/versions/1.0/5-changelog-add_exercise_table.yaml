@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: 5
+      author: WorkoutPlanner
+      changes:
+        - createTable:
+            tableName: exercises
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR
+                  constraints:
+                    nullable: false
+              - column:
+                  name: category_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_exercises_exercise_categories
+                    references: exercise_categories(id)
+              - column:
+                  name: exercise_type_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_exercises_exercise_types
+                    references: exercise_types(id)
+              - column:
+                  name: owner
+                  type: UUID
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            constraintName: fk_exercises_users
+            baseTableName: exercises
+            baseColumnNames: owner
+            referencedTableName: users
+            referencedColumnNames: id
+            onDelete: CASCADE

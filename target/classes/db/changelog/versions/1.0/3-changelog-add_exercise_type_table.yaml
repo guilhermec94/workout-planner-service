@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: WorkoutPlanner
+      changes:
+        - createTable:
+            tableName: exercise_types
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR
+                  constraints:
+                    nullable: false
+              - column:
+                  name: weight_unit
+                  type: VARCHAR
+                  constraints:
+                    nullable: true
+              - column:
+                  name: distance_unit
+                  type: VARCHAR
+                  constraints:
+                    nullable: true

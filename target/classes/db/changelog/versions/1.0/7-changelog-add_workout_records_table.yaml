@@ -1,0 +1,60 @@
+databaseChangeLog:
+  - changeSet:
+      id: 7
+      author: WorkoutPlanner
+      changes:
+        - createTable:
+            tableName: workout_records
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: workout_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_workout_records_workout
+                    references: workouts(id)
+              - column:
+                  name: exercise_id
+                  type: UUID
+              - column:
+                  name: series
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: repetitions
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: weight
+                  type: FLOAT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: distance
+                  type: FLOAT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: time
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            constraintName: fk_workout_records_exercises
+            baseTableName: workout_records
+            baseColumnNames: workout_id
+            referencedTableName: workouts
+            referencedColumnNames: id
+            onDelete: CASCADE
