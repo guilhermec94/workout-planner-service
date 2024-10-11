@@ -1,0 +1,723 @@
+openapi: "3.0.3"
+info:
+  version: "1.0.0"
+  title: "Workout planner API"
+  description: Api for the new workout planner app
+servers:
+  - url: /api/v1
+
+paths:
+  /exercises/types:
+    get:
+      operationId: GetExercises
+      summary: Fetch a list of exercise types
+      responses:
+        200:
+          description: A list of exercise types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ExerciseTypeDTO"
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+  /exercises/categories:
+    post:
+      operationId: CreateCategory
+      summary: Create a new category
+      requestBody:
+        description: Category payload
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CategoryDTO"
+      responses:
+        201:
+          description: The newly created category
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+    get:
+      operationId: GetCategories
+      summary: Fetch a list of categories
+      responses:
+        200:
+          description: A list of categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CategoryDTO"
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+  /exercises/categories/{categoryId}:
+    parameters:
+      - in: path
+        name: categoryId
+        description: The unique identifier
+        required: true
+        schema:
+          $ref: "#/components/schemas/Id"
+    get:
+      operationId: GetCategory
+      summary: Get a category by id
+      responses:
+        200:
+          description: A category
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExerciseDTO"
+              example:
+                id: 54975793-8307-4fa6-ae7f-6b7792ed1206
+                name: somecategory
+    patch:
+      operationId: PatchCategory
+      summary: Patch a category
+      description: Body schema should follow format RFC 6902 (application/json-patch+json)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              nullable: true
+      responses:
+        200:
+          description: Success patching a category
+        404:
+          description: No category found for the provided `categoryId`
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+        409:
+          description: Conflict detected during update
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+    delete:
+      operationId: DeleteCategory
+      summary: Delete a category by id
+      responses:
+        200:
+          description: Success deleting a category
+        404:
+          description: No category found for the provided `categoryId`
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+  /exercises/{exerciseId}/instructions:
+    parameters:
+      - in: path
+        name: exerciseId
+        description: The unique identifier
+        required: true
+        schema:
+          $ref: "#/components/schemas/Id"
+    post:
+      operationId: CreateExerciseInstruction
+      summary: Create a new exercise instruction
+      requestBody:
+        description: Exercise instruction payload
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExerciseInstructionDTO"
+      responses:
+        201:
+          description: The newly created exercise instruction
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+    get:
+      operationId: GetExerciseInstructions
+      summary: Fetch a list of exercises
+      responses:
+        200:
+          description: A list of exercises
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ExerciseDTO"
+                  pagination:
+                    $ref: "#/components/schemas/PaginationDTO"
+                required:
+                  - data
+                  - pagination
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+  /exercises/{exerciseId}/instructions/{instructionId}:
+    parameters:
+      - in: path
+        name: exerciseId
+        description: The unique identifier
+        required: true
+        schema:
+          $ref: "#/components/schemas/Id"
+      - in: path
+        name: instructionId
+        description: The unique identifier
+        required: true
+        schema:
+          $ref: "#/components/schemas/Id"
+    get:
+      operationId: GetExerciseInstruction
+      summary: Get a exercise instruction by id
+      responses:
+        200:
+          description: A exercise
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExerciseDTO"
+              example:
+                id: 54975793-8307-4fa6-ae7f-6b7792ed1206
+                name: someexercise
+    patch:
+      operationId: PatchExerciseInstruction
+      summary: Patch a exercise instruction
+      description: Body schema should follow format RFC 6902 (application/json-patch+json)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              nullable: true
+      responses:
+        200:
+          description: Success patching a exercise
+        404:
+          description: No exercise found for the provided `exerciseId`
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+        409:
+          description: Conflict detected during update
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+    delete:
+      operationId: DeleteExerciseInstruction
+      summary: Delete a exercise instruction by id
+      responses:
+        200:
+          description: Success deleting a exercise instruction
+        404:
+          description: No exercise found for the provided `exerciseId`
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+  /exercises:
+    post:
+      operationId: CreateExercise
+      summary: Create a new exercise
+      requestBody:
+        description: Exercise payload
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExerciseDTO"
+      responses:
+        201:
+          description: The newly created exercise
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+    get:
+      operationId: GetExercises
+      parameters:
+        - in: query
+          name: offset
+          schema:
+            type: integer
+          description: The number of items to skip before starting to collect the result set
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: The numbers of items to return
+        - in: query
+          name: filter-key
+          schema:
+            type: array
+            items:
+              type: string
+          description: name of the field to filter by
+        - in: query
+          name: filter-value
+          schema:
+            type: array
+            items:
+              type: string
+          description: value of the field to filter with
+        - in: query
+          name: sort-key
+          schema:
+            type: string
+        - in: query
+          name: sort-order
+          schema:
+            $ref: "#/components/schemas/SortOrderDTO"
+      summary: Fetch a list of exercises
+      responses:
+        200:
+          description: A list of exercises
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ExerciseDTO"
+                  pagination:
+                    $ref: "#/components/schemas/PaginationDTO"
+                required:
+                  - data
+                  - pagination
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+  /exercises/{exerciseId}:
+    parameters:
+      - in: path
+        name: exerciseId
+        description: The unique identifier
+        required: true
+        schema:
+          $ref: "#/components/schemas/Id"
+    get:
+      operationId: GetExercise
+      summary: Get a exercise by id
+      responses:
+        200:
+          description: A exercise
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExerciseDTO"
+              example:
+                id: 54975793-8307-4fa6-ae7f-6b7792ed1206
+                name: someexercise
+    patch:
+      operationId: PatchExercise
+      summary: Patch a exercise
+      description: Body schema should follow format RFC 6902 (application/json-patch+json)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              nullable: true
+      responses:
+        200:
+          description: Success patching a exercise
+        404:
+          description: No exercise found for the provided `exerciseId`
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+        409:
+          description: Conflict detected during update
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+    delete:
+      operationId: DeleteExercise
+      summary: Delete a exercise by id
+      responses:
+        200:
+          description: Success deleting a exercise
+        404:
+          description: No exercise found for the provided `exerciseId`
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+
+  /workouts:
+    post:
+      operationId: CreateWorkout
+      summary: Create a new workout
+      requestBody:
+        description: Workout payload
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WorkoutDTO"
+      responses:
+        201:
+          description: The newly created workout
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+    get:
+      operationId: GetWorkouts
+      parameters:
+        - in: query
+          name: offset
+          schema:
+            type: integer
+          description: The number of items to skip before starting to collect the result set
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: The numbers of items to return
+        - in: query
+          name: filter-key
+          schema:
+            type: array
+            items:
+              type: string
+          description: name of the field to filter by
+        - in: query
+          name: filter-value
+          schema:
+            type: array
+            items:
+              type: string
+          description: value of the field to filter with
+        - in: query
+          name: sort-key
+          schema:
+            type: string
+        - in: query
+          name: sort-order
+          schema:
+            $ref: "#/components/schemas/SortOrderDTO"
+      summary: Fetch a list of workouts
+      responses:
+        200:
+          description: A list of workouts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/WorkoutDTO"
+                  pagination:
+                    $ref: "#/components/schemas/PaginationDTO"
+                required:
+                  - data
+                  - pagination
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+  /workouts/{workoutId}:
+    parameters:
+      - in: path
+        name: workouitId
+        description: The unique identifier
+        required: true
+        schema:
+          $ref: "#/components/schemas/Id"
+    get:
+      operationId: GetWorkout
+      summary: Get a workout by id
+      responses:
+        200:
+          description: A workout
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WorkoutDTO"
+              example:
+                id: 54975793-8307-4fa6-ae7f-6b7792ed1206
+                name: someworkout
+    patch:
+      operationId: PatchWorkout
+      summary: Patch a workout
+      description: Body schema should follow format RFC 6902 (application/json-patch+json)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              nullable: true
+      responses:
+        200:
+          description: Success patching a workout
+        404:
+          description: No workout found for the provided `workoutId`
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+        409:
+          description: Conflict detected during update
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+    delete:
+      operationId: DeleteWorkout
+      summary: Delete a workout by id
+      responses:
+        200:
+          description: Success deleting a workout
+        404:
+          description: No workout found for the provided `workoutId`
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+  /workout/{workoutId}/records:
+    get:
+      operationId: GetWorkoutRecords
+      parameters:
+        - in: query
+          name: offset
+          schema:
+            type: integer
+          description: The number of items to skip before starting to collect the result set
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: The numbers of items to return
+        - in: query
+          name: filter-key
+          schema:
+            type: array
+            items:
+              type: string
+          description: name of the field to filter by
+        - in: query
+          name: filter-value
+          schema:
+            type: array
+            items:
+              type: string
+          description: value of the field to filter with
+        - in: query
+          name: sort-key
+          schema:
+            type: string
+        - in: query
+          name: sort-order
+          schema:
+            $ref: "#/components/schemas/SortOrderDTO"
+      summary: Fetch a list of workout records
+      responses:
+        200:
+          description: A list of workout records
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/WorkoutRecordDTO"
+                  pagination:
+                    $ref: "#/components/schemas/PaginationDTO"
+                required:
+                  - data
+                  - pagination
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+
+components:
+  schemas:
+    Id:
+      description: The unique identifier
+      type: string
+      format: uuid
+      nullable: false
+
+    ErrorDTO:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          description: A human readable error message
+          type: string
+
+    SortOrderDTO:
+      type: string
+      enum: [ASC, DESC]
+
+    PaginationDTO:
+      type: object
+      properties:
+        page:
+          type: integer
+        per_page:
+          type: integer
+        total_records:
+          type: integer
+      required:
+        - page
+        - per_page
+        - total_records
+
+    ExerciseDTO:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/Id"
+        name:
+          type: string
+        categoryId:
+          $ref: "#/components/schemas/Id"
+        exerciseTypeId:
+          $ref: "#/components/schemas/Id"
+        creationDate:
+          type: string
+
+    CategoryDTO:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/Id"
+
+    ExerciseTypeDTO:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/Id"
+
+    ExerciseDetailDTO:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/Id"
+        name:
+          type: string
+        category:
+          $ref: "#/components/schemas/CategoryDTO"
+        exerciseType:
+          $ref: "#/components/schemas/ExerciseTypeDTO"
+        creationDate:
+          type: string
+
+    ExerciseInstructionDTO:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/Id"
+        name:
+          type: string
+        description:
+          type: string
+        imageUrl:
+          type: string
+        videoUrl:
+          type: string
+        exercise_id:
+          $ref: "#/components/schemas/Id"
+
+    WorkoutDTO:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/Id"
+        name:
+          type: string
+        creationDate:
+          type: string
+
+    WorkoutRecordDTO:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/Id"
+        exercise:
+          $ref: "#/components/schemas/ExerciseDTO"
+        series:
+          type: number
+        reps:
+          type: number
+        weight:
+          type: number
+        distance:
+          type: number
+        time:
+          type: string
