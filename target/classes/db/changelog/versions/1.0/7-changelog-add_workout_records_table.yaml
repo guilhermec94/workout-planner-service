@@ -14,10 +14,6 @@ databaseChangeLog:
               - column:
                   name: workout_id
                   type: UUID
-                  constraints:
-                    nullable: false
-                    foreignKeyName: fk_workout_records_workout
-                    references: workouts(id)
               - column:
                   name: exercise_id
                   type: UUID
@@ -52,9 +48,16 @@ databaseChangeLog:
                   constraints:
                     nullable: false
         - addForeignKeyConstraint:
-            constraintName: fk_workout_records_exercises
+            constraintName: fk_workout_records_workouts
             baseTableName: workout_records
             baseColumnNames: workout_id
             referencedTableName: workouts
+            referencedColumnNames: id
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            constraintName: fk_workout_records_exercises
+            baseTableName: workout_records
+            baseColumnNames: exercise_id
+            referencedTableName: exercises
             referencedColumnNames: id
             onDelete: CASCADE

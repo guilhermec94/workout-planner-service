@@ -1,4 +1,4 @@
-package com.workout_planner_service.workout_planner;
+package com.workout_planner_service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

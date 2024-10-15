@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: 7
+      author: WorkoutPlanner
+      changes:
+        - createTable:
+            tableName: workout_exercises
+            columns:
+              - column:
+                  name: workout_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_workout
+                    references: workouts(id)
+              - column:
+                  name: exercise_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_exercise
+                    references: workouts(id)
+            constraints:
+              primaryKey: true
+              primaryKeyName: pk_workout_exercises
+              primaryKeyColumns: workout_id, exercise_id
