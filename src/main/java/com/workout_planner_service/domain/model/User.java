@@ -1,8 +1,7 @@
 package com.workout_planner_service.domain.model;
 
-import lombok.*;
-
 import java.util.UUID;
+import lombok.*;
 
 @Builder
 @Getter
@@ -10,6 +9,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
-    private UUID Id;
-    private String Name;
+  private UUID id;
+  private String name;
 }
