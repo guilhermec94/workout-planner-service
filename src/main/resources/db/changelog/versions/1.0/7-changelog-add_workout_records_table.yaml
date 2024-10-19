@@ -14,9 +14,13 @@ databaseChangeLog:
               - column:
                   name: workout_id
                   type: UUID
+                  constraints:
+                    nullable: false
               - column:
                   name: exercise_id
                   type: UUID
+                  constraints:
+                    nullable: false
               - column:
                   name: series
                   type: INT

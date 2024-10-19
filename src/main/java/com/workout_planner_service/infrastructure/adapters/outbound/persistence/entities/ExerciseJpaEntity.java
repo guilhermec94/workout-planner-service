@@ -1,6 +1,7 @@
 package com.workout_planner_service.infrastructure.adapters.outbound.persistence.entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
@@ -17,6 +18,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "exercises")
 public class ExerciseJpaEntity {
+  @Id
   private UUID id;
   private String name;
   @ManyToOne private ExerciseCategoryJpaEntity category;

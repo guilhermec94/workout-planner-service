@@ -25,27 +25,34 @@ databaseChangeLog:
                   name: image
                   type: VARCHAR
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: video
                   type: VARCHAR
                   constraints:
-                    nullable: false
+                    nullable: true
               - column:
                   name: exercise_id
                   type: UUID
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_exercise_instructions_exercises
-                    references: exercises(id)
               - column:
                   name: owner
                   type: UUID
+                  constraints:
+                    nullable: false
               - column:
                   name: created_at
                   type: TIMESTAMP
                   constraints:
                     nullable: false
+        - addForeignKeyConstraint:
+            constraintName: fk_exercise_instructions_exercises
+            baseTableName: exercise_instructions
+            baseColumnNames: exercise_id
+            referencedTableName: exercises
+            referencedColumnNames: id
+            onDelete: CASCADE
         - addForeignKeyConstraint:
             constraintName: fk_exercise_instructions_users
             baseTableName: exercise_instructions
