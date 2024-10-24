@@ -18,8 +18,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "exercises")
 public class ExerciseJpaEntity {
-  @Id
-  private UUID id;
+  @Id private UUID id;
   private String name;
   @ManyToOne private ExerciseCategoryJpaEntity category;
   @ManyToOne private ExerciseTypeJpaEntity type;

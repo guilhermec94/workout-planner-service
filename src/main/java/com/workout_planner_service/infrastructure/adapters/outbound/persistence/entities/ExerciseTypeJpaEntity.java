@@ -16,8 +16,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "exercise_types")
 public class ExerciseTypeJpaEntity {
-  @Id
-  private UUID id;
+  @Id private UUID id;
   private String name;
   private String weightUnit;
   private String distanceUnit;
