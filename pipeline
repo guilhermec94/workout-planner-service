@@ -18,7 +18,7 @@ pipeline {
         stage('Build') {
             steps {
                 // Compile and package the Spring Boot application
-                bat 'mvn clean package'
+                bat 'mvn clean install -U -DskipTests'
             }
         }
         stage('Test') {
