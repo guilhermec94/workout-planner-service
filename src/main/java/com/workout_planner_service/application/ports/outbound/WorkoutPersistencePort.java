@@ -4,16 +4,15 @@ import com.workout_planner_service.domain.model.Workout;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import lombok.NonNull;
 
 public interface WorkoutPersistencePort {
 
-  List<Workout> getAllWorkouts(UUID userId);
+  List<Workout> getAllWorkouts(@NonNull UUID userId);
 
-  Optional<Workout> getWorkoutById(UUID id);
+  Optional<Workout> getWorkoutById(@NonNull UUID id);
 
-  Workout saveWorkout(Workout workout);
+  Workout saveWorkout(@NonNull Workout workout);
 
-  Workout patchWorkout(Workout workout);
-
-  void deleteWorkout(UUID id);
+  void deleteWorkout(@NonNull UUID id);
 }

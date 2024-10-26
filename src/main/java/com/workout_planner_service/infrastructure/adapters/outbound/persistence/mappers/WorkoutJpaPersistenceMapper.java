@@ -1,4 +1,4 @@
-package com.workout_planner_service.infrastructure.adapters.outbound.persistence.mapper;
+package com.workout_planner_service.infrastructure.adapters.outbound.persistence.mappers;
 
 import com.workout_planner_service.domain.model.Workout;
 import com.workout_planner_service.infrastructure.adapters.outbound.persistence.entities.WorkoutJpaEntity;

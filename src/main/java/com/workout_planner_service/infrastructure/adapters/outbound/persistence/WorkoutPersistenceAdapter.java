@@ -2,7 +2,7 @@ package com.workout_planner_service.infrastructure.adapters.outbound.persistence
 
 import com.workout_planner_service.application.ports.outbound.WorkoutPersistencePort;
 import com.workout_planner_service.domain.model.Workout;
-import com.workout_planner_service.infrastructure.adapters.outbound.persistence.mapper.WorkoutJpaPersistenceMapper;
+import com.workout_planner_service.infrastructure.adapters.outbound.persistence.mappers.WorkoutJpaPersistenceMapper;
 import com.workout_planner_service.infrastructure.adapters.outbound.persistence.repositories.WorkoutJpaRepository;
 import java.util.List;
 import java.util.Optional;
@@ -26,27 +26,20 @@ public class WorkoutPersistenceAdapter implements WorkoutPersistencePort {
   }
 
   @Override
-  public Optional<Workout> getWorkoutById(UUID id) {
+  public Optional<Workout> getWorkoutById(@NonNull UUID id) {
     var entity = this.jpaRepository.findById(id);
     return entity.map(this.jpaPersistenceMapper::toWorkout);
   }
 
   @Override
-  public Workout saveWorkout(Workout workout) {
+  public Workout saveWorkout(@NonNull Workout workout) {
     var entity = this.jpaPersistenceMapper.toWorkoutEntity(workout);
     this.jpaRepository.save(entity);
     return this.jpaPersistenceMapper.toWorkout(entity);
   }
 
   @Override
-  public Workout patchWorkout(Workout workout) {
-    var entity = this.jpaPersistenceMapper.toWorkoutEntity(workout);
-    this.jpaRepository.save(entity);
-    return this.jpaPersistenceMapper.toWorkout(entity);
-  }
-
-  @Override
-  public void deleteWorkout(UUID id) {
+  public void deleteWorkout(@NonNull UUID id) {
     this.jpaRepository.deleteById(id);
   }
 }

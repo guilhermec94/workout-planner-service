@@ -9,3 +9,11 @@ tasks:
     desc: Check code style inconsistencies and apply fixes
     cmds:
       - mvn spotless:apply
+  code-build:
+    desc: Build the codebase generating an application
+    cmds:
+      - mvnw clean install -U -DskipTests -T 16
+  code-test:
+    desc: Run all tests with coverage
+    cmds:
+      - mvnw test

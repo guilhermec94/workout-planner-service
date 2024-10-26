@@ -1,4 +1,4 @@
-package com.workout_planner_service.infrastructure.adapters.outbound.persistence.mapper;
+package com.workout_planner_service.infrastructure.adapters.outbound.persistence.mappers;
 
 import com.workout_planner_service.domain.model.User;
 import com.workout_planner_service.domain.model.Workout;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-10-26T15:02:03+0100",
+    date = "2024-10-26T19:46:47+0100",
     comments = "version: 1.6.2, compiler: javac, environment: Java 17.0.12 (Eclipse Adoptium)"
 )
 @Component
