@@ -12,7 +12,7 @@ pipeline {
         stage('Clone') {
             steps {
                 // Checkout the repository
-                git branch: 'main', url: 'https://github.com/your-username/your-repo.git'
+                git branch: 'main', url: 'https://github.com/guilhermec94/workout-planner-service.git'
             }
         }
         stage('Build') {
