@@ -12,5 +12,7 @@ import lombok.*;
 @Table(name = "users")
 public class UserJpaEntity {
   @Id private UUID id;
-  private String name;
+  private String firstName;
+  private String lastName;
+  private String email;
 }

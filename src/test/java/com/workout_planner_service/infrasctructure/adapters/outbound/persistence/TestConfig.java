@@ -7,10 +7,9 @@ import org.springframework.context.annotation.PropertySource;
 
 @EnableAutoConfiguration
 @SpringBootConfiguration
-@ComponentScan(
-    basePackages = "com.workout_planner_service.infrastructure.adapters.outbound.persistence")
-@ComponentScan(
-    "com.workout_planner_service.infrasctructure.adapters.outbound.persistence.repositories")
+@ComponentScan(basePackages = {
+        "com.workout_planner_service.infrastructure.adapters.outbound.persistence",
+        "com.workout_planner_service.infrastructure.adapters.outbound.persistence.repositories"
+})
 @PropertySource("classpath:application.properties")
-@PropertySource("classpath:application-test.properties")
 public class TestConfig {}

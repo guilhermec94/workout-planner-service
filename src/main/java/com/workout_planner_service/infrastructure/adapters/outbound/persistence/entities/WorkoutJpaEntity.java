@@ -21,6 +21,9 @@ public class WorkoutJpaEntity {
   @JoinTable(name = "workout_exercises", joinColumns = @JoinColumn(name = "workout_id"))
   private List<ExerciseJpaEntity> exercises;
 
-  @ManyToOne private UserJpaEntity owner;
+  @ManyToOne
+  @JoinColumn(name = "owner")
+  private UserJpaEntity owner;
+
   private LocalDateTime createdAt;
 }

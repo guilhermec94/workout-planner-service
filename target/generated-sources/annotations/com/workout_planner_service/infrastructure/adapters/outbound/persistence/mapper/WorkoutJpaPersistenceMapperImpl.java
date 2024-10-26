@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-10-24T21:32:25+0100",
+    date = "2024-10-26T12:01:18+0100",
     comments = "version: 1.6.2, compiler: javac, environment: Java 17.0.12 (Eclipse Adoptium)"
 )
 @Component
@@ -55,7 +55,9 @@ public class WorkoutJpaPersistenceMapperImpl implements WorkoutJpaPersistenceMap
         UserJpaEntity.UserJpaEntityBuilder userJpaEntity = UserJpaEntity.builder();
 
         userJpaEntity.id( user.getId() );
-        userJpaEntity.name( user.getName() );
+        userJpaEntity.firstName( user.getFirstName() );
+        userJpaEntity.lastName( user.getLastName() );
+        userJpaEntity.email( user.getEmail() );
 
         return userJpaEntity.build();
     }
@@ -68,7 +70,9 @@ public class WorkoutJpaPersistenceMapperImpl implements WorkoutJpaPersistenceMap
         User.UserBuilder user = User.builder();
 
         user.id( userJpaEntity.getId() );
-        user.name( userJpaEntity.getName() );
+        user.firstName( userJpaEntity.getFirstName() );
+        user.lastName( userJpaEntity.getLastName() );
+        user.email( userJpaEntity.getEmail() );
 
         return user.build();
     }
