@@ -34,7 +34,7 @@ public abstract class DatabaseTestContainer {
   static {
     postgreSQLContainer =
         new PostgreSQLContainer<>(DockerImageName.parse("library/postgres:17.0"))
-                .withDatabaseName("workout-planner")
+            .withDatabaseName("workout-planner")
             .withStartupTimeout(Duration.of(60, ChronoUnit.SECONDS));
     postgreSQLContainer.start();
   }

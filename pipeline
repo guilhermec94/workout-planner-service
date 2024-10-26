@@ -21,12 +21,22 @@ pipeline {
                 bat 'mvn clean install -U -DskipTests'
             }
         }
-        stage('Test') {
-            steps {
-                // Run unit tests
-                bat 'mvn test'
+        stage('Check code quality') {
+            parallel {
+                stage('Check code formatting') {
+                    steps {
+                        bat 'mvn spotless:check'
+                    }
+                }
+                stage('Test') {
+                    steps {
+                        // Run unit tests
+                        bat 'mvn test'
+                    }
+                }
             }
         }
+
         stage('Deploy') {
             steps {
                 // Deployment steps, e.g., to a test environment
