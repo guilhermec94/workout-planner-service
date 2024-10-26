@@ -1,8 +1,8 @@
 pipeline {
     agent any
     tools {
-        jdk 'JDK11' // Use the JDK version compatible with your Spring Boot app
-        maven 'Maven3' // Ensure Maven is installed on Jenkins
+        jdk 'java-17-openjdk' // Use the JDK version compatible with your Spring Boot app
+        maven 'maven' // Ensure Maven is installed on Jenkins
     }
     environment {
         // Customize as needed
