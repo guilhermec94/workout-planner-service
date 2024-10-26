@@ -1,9 +1,9 @@
 package com.workout_planner_service.infrastructure.adapters.outbound.persistence.mappers;
 
+import com.workout_planner_service.domain.model.ExerciseCategory;
 import com.workout_planner_service.domain.model.User;
-import com.workout_planner_service.domain.model.Workout;
+import com.workout_planner_service.infrastructure.adapters.outbound.persistence.entities.ExerciseCategoryJpaEntity;
 import com.workout_planner_service.infrastructure.adapters.outbound.persistence.entities.UserJpaEntity;
-import com.workout_planner_service.infrastructure.adapters.outbound.persistence.entities.WorkoutJpaEntity;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
@@ -13,38 +13,38 @@ import org.springframework.stereotype.Component;
     comments = "version: 1.6.2, compiler: javac, environment: Java 17.0.12 (Eclipse Adoptium)"
 )
 @Component
-public class WorkoutJpaPersistenceMapperImpl implements WorkoutJpaPersistenceMapper {
+public class ExerciseCategoryJpaPersistenceMapperImpl implements ExerciseCategoryJpaPersistenceMapper {
 
     @Override
-    public WorkoutJpaEntity toWorkoutJpaEntity(Workout workout) {
-        if ( workout == null ) {
+    public ExerciseCategoryJpaEntity toExerciseCategoryJpaEntity(ExerciseCategory exerciseCategory) {
+        if ( exerciseCategory == null ) {
             return null;
         }
 
-        WorkoutJpaEntity.WorkoutJpaEntityBuilder workoutJpaEntity = WorkoutJpaEntity.builder();
+        ExerciseCategoryJpaEntity.ExerciseCategoryJpaEntityBuilder exerciseCategoryJpaEntity = ExerciseCategoryJpaEntity.builder();
 
-        workoutJpaEntity.id( workout.getId() );
-        workoutJpaEntity.name( workout.getName() );
-        workoutJpaEntity.owner( userToUserJpaEntity( workout.getOwner() ) );
-        workoutJpaEntity.createdAt( workout.getCreatedAt() );
+        exerciseCategoryJpaEntity.id( exerciseCategory.getId() );
+        exerciseCategoryJpaEntity.name( exerciseCategory.getName() );
+        exerciseCategoryJpaEntity.owner( userToUserJpaEntity( exerciseCategory.getOwner() ) );
+        exerciseCategoryJpaEntity.createdAt( exerciseCategory.getCreatedAt() );
 
-        return workoutJpaEntity.build();
+        return exerciseCategoryJpaEntity.build();
     }
 
     @Override
-    public Workout toWorkout(WorkoutJpaEntity workout) {
-        if ( workout == null ) {
+    public ExerciseCategory toExerciseCategory(ExerciseCategoryJpaEntity exerciseCategory) {
+        if ( exerciseCategory == null ) {
             return null;
         }
 
-        Workout.WorkoutBuilder workout1 = Workout.builder();
+        ExerciseCategory.ExerciseCategoryBuilder exerciseCategory1 = ExerciseCategory.builder();
 
-        workout1.id( workout.getId() );
-        workout1.name( workout.getName() );
-        workout1.owner( userJpaEntityToUser( workout.getOwner() ) );
-        workout1.createdAt( workout.getCreatedAt() );
+        exerciseCategory1.id( exerciseCategory.getId() );
+        exerciseCategory1.name( exerciseCategory.getName() );
+        exerciseCategory1.owner( userJpaEntityToUser( exerciseCategory.getOwner() ) );
+        exerciseCategory1.createdAt( exerciseCategory.getCreatedAt() );
 
-        return workout1.build();
+        return exerciseCategory1.build();
     }
 
     protected UserJpaEntity userToUserJpaEntity(User user) {

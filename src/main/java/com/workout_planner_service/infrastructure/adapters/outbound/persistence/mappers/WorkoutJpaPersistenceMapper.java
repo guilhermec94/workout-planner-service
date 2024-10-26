@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface WorkoutJpaPersistenceMapper {
 
-  WorkoutJpaEntity toWorkoutEntity(Workout workout);
+  WorkoutJpaEntity toWorkoutJpaEntity(Workout workout);
 
   Workout toWorkout(WorkoutJpaEntity workout);
 }

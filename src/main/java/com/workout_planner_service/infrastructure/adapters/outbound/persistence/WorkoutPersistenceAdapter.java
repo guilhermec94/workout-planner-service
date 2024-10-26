@@ -33,7 +33,7 @@ public class WorkoutPersistenceAdapter implements WorkoutPersistencePort {
 
   @Override
   public Workout saveWorkout(@NonNull Workout workout) {
-    var entity = this.jpaPersistenceMapper.toWorkoutEntity(workout);
+    var entity = this.jpaPersistenceMapper.toWorkoutJpaEntity(workout);
     this.jpaRepository.save(entity);
     return this.jpaPersistenceMapper.toWorkout(entity);
   }

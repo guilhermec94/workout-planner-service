@@ -17,6 +17,10 @@ import lombok.NoArgsConstructor;
 public class ExerciseCategoryJpaEntity {
   @Id private UUID id;
   private String name;
-  @ManyToOne private UserJpaEntity owner;
+
+  @ManyToOne
+  @JoinColumn(name = "owner")
+  private UserJpaEntity owner;
+
   private LocalDateTime createdAt;
 }

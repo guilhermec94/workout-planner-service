@@ -1,9 +1,6 @@
 package com.workout_planner_service.infrastructure.adapters.outbound.persistence.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
@@ -20,8 +17,18 @@ import lombok.NoArgsConstructor;
 public class ExerciseJpaEntity {
   @Id private UUID id;
   private String name;
-  @ManyToOne private ExerciseCategoryJpaEntity category;
-  @ManyToOne private ExerciseTypeJpaEntity type;
-  @ManyToOne private UserJpaEntity owner;
+
+  @ManyToOne
+  @JoinColumn(name = "category_id")
+  private ExerciseCategoryJpaEntity category;
+
+  @ManyToOne
+  @JoinColumn(name = "exercise_type_id")
+  private ExerciseTypeJpaEntity type;
+
+  @ManyToOne
+  @JoinColumn(name = "owner")
+  private UserJpaEntity owner;
+
   private LocalDateTime createdAt;
 }
