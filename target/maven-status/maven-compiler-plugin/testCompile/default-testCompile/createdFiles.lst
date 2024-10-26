@@ -1,3 +1,5 @@
 com\workout_planner_service\infrasctructure\adapters\outbound\persistence\TestConfig.class
+com\workout_planner_service\infrasctructure\adapters\outbound\persistence\ExerciseCategoryPersistenceAdapterTest.class
 com\workout_planner_service\infrasctructure\adapters\outbound\persistence\DatabaseTestContainer.class
 com\workout_planner_service\infrasctructure\adapters\outbound\persistence\WorkoutPersistenceAdapterTest.class
+com\workout_planner_service\infrasctructure\adapters\outbound\persistence\ExercisePersistenceAdapterTest.class
