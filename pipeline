@@ -1,0 +1,50 @@
+pipeline {
+    agent any
+    tools {
+        jdk 'JDK11' // Use the JDK version compatible with your Spring Boot app
+        maven 'Maven3' // Ensure Maven is installed on Jenkins
+    }
+    environment {
+        // Customize as needed
+        MAVEN_OPTS = '-Xmx1024m'
+    }
+    stages {
+        stage('Clone') {
+            steps {
+                // Checkout the repository
+                git branch: 'main', url: 'https://github.com/your-username/your-repo.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                // Compile and package the Spring Boot application
+                sh 'mvn clean package'
+            }
+        }
+        stage('Test') {
+            steps {
+                // Run unit tests
+                sh 'mvn test'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                // Deployment steps, e.g., to a test environment
+                echo 'Deploying...'
+                // You can add scripts or additional tools as needed
+            }
+        }
+    }
+    post {
+        always {
+            // Archive build artifacts
+            archiveArtifacts artifacts: 'target/*.jar', allowEmptyArchive: true
+        }
+        success {
+            echo 'Pipeline succeeded!'
+        }
+        failure {
+            echo 'Pipeline failed.'
+        }
+    }
+}
