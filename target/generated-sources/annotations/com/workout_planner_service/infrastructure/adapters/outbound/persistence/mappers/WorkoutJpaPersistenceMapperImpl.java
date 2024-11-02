@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-10-26T23:26:44+0100",
-    comments = "version: 1.6.2, compiler: javac, environment: Java 17.0.12 (Eclipse Adoptium)"
+    date = "2024-10-29T22:18:20+0000",
+    comments = "version: 1.6.2, compiler: javac, environment: Java 21.0.5 (Eclipse Adoptium)"
 )
 @Component
 public class WorkoutJpaPersistenceMapperImpl implements WorkoutJpaPersistenceMapper {
