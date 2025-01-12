@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.workout_planner_service.infrastructure.adapters.outbound.persistence.WorkoutPersistenceAdapterTest
+-------------------------------------------------------------------------------
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.156 s -- in com.workout_planner_service.infrastructure.adapters.outbound.persistence.WorkoutPersistenceAdapterTest

@@ -1,4 +1,4 @@
-package com.workout_planner_service.infrasctructure.adapters.outbound.persistence;
+package com.workout_planner_service.infrastructure.adapters.outbound.persistence;
 
 import static org.testcontainers.containers.PostgreSQLContainer.POSTGRESQL_PORT;
 

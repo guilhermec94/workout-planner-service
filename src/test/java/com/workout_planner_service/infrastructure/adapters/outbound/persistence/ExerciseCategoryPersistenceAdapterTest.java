@@ -1,11 +1,10 @@
-package com.workout_planner_service.infrasctructure.adapters.outbound.persistence;
+package com.workout_planner_service.infrastructure.adapters.outbound.persistence;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import com.workout_planner_service.domain.model.ExerciseCategory;
 import com.workout_planner_service.domain.model.User;
-import com.workout_planner_service.domain.model.Workout;
-import com.workout_planner_service.infrastructure.adapters.outbound.persistence.WorkoutPersistenceAdapter;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import org.assertj.core.api.AssertionsForClassTypes;
@@ -18,20 +17,20 @@ import org.springframework.test.context.jdbc.Sql;
 
 @DataJpaTest
 @ActiveProfiles("test")
-public class WorkoutPersistenceAdapterTest extends DatabaseTestContainer {
-  @Autowired WorkoutPersistenceAdapter persistenceAdapter;
+public class ExerciseCategoryPersistenceAdapterTest extends DatabaseTestContainer {
+  @Autowired ExerciseCategoryPersistenceAdapter persistenceAdapter;
 
   @Test
   void shouldThrowExceptionWhenUserIdIsNull() {
     ThrowableAssert.ThrowingCallable throwingCallable =
-        () -> persistenceAdapter.getAllWorkouts(null);
+        () -> persistenceAdapter.getAllExerciseCategories(null);
     assertThatThrownBy(throwingCallable).isInstanceOf(NullPointerException.class);
   }
 
   @Test
-  @Sql("/workout/insert-user.sql")
-  @Sql("/workout/insert-workouts.sql")
-  void shouldRetrieveWorkoutsSuccessfully() {
+  @Sql("/exercise/insert-user.sql")
+  @Sql("/exerciseCategory/insert-category.sql")
+  void shouldRetrieveExerciseCategoriesSuccessfully() {
     // Given
     var userId = UUID.fromString("2e97b683-1b68-406d-b101-533c347e67ea");
     var user =
@@ -41,34 +40,34 @@ public class WorkoutPersistenceAdapterTest extends DatabaseTestContainer {
             .lastName("UserLastName")
             .email("user@email.com")
             .build();
-    var workout =
-        Workout.builder()
-            .id(UUID.fromString("d81ef4cd-a6b3-4375-ba8d-467e5a50a988"))
-            .name("Workout1")
+    var category =
+        ExerciseCategory.builder()
+            .id(UUID.fromString("ada096c6-736a-45fe-a17d-d97598befad8"))
+            .name("Cat1")
             .owner(user)
             .createdAt(LocalDateTime.parse("2023-10-25T15:30:00"))
             .build();
     // When
-    var data = persistenceAdapter.getAllWorkouts(userId);
+    var data = persistenceAdapter.getAllExerciseCategories(userId);
 
     // Then
     assertThat(data).isNotEmpty();
-    AssertionsForClassTypes.assertThat(data.get(0)).usingRecursiveComparison().isEqualTo(workout);
+    AssertionsForClassTypes.assertThat(data.get(0)).usingRecursiveComparison().isEqualTo(category);
   }
 
   @Test
-  void shouldThrowExceptionWhenWorkoutIdIsNullForGet() {
+  void shouldThrowExceptionWhenExerciseCategoryIdIsNullForGet() {
     ThrowableAssert.ThrowingCallable throwingCallable =
-        () -> persistenceAdapter.getWorkoutById(null);
+        () -> persistenceAdapter.getExerciseCategoryById(null);
     assertThatThrownBy(throwingCallable).isInstanceOf(NullPointerException.class);
   }
 
   @Test
-  @Sql("/workout/insert-user.sql")
-  @Sql("/workout/insert-workouts.sql")
-  void shouldRetrieveWorkoutById() {
+  @Sql("/exercise/insert-user.sql")
+  @Sql("/exerciseCategory/insert-category.sql")
+  void shouldRetrieveExerciseCategoryById() {
     // Given
-    var workoutId = UUID.fromString("d81ef4cd-a6b3-4375-ba8d-467e5a50a988");
+    var categoryId = UUID.fromString("ada096c6-736a-45fe-a17d-d97598befad8");
     var user =
         User.builder()
             .id(UUID.fromString("2e97b683-1b68-406d-b101-533c347e67ea"))
@@ -76,32 +75,33 @@ public class WorkoutPersistenceAdapterTest extends DatabaseTestContainer {
             .lastName("UserLastName")
             .email("user@email.com")
             .build();
-    var workout =
-        Workout.builder()
-            .id(workoutId)
-            .name("Workout1")
+    var category =
+        ExerciseCategory.builder()
+            .id(categoryId)
+            .name("Cat1")
             .owner(user)
             .createdAt(LocalDateTime.parse("2023-10-25T15:30:00"))
             .build();
     // When
-    var data = persistenceAdapter.getWorkoutById(workoutId);
+    var data = persistenceAdapter.getExerciseCategoryById(categoryId);
 
     // Then
     assertThat(data).isNotEmpty();
-    AssertionsForClassTypes.assertThat(data.get()).usingRecursiveComparison().isEqualTo(workout);
+    AssertionsForClassTypes.assertThat(data.get()).usingRecursiveComparison().isEqualTo(category);
   }
 
   @Test
-  void shouldThrowExceptionIfWorkoutIsNull() {
-    ThrowableAssert.ThrowingCallable throwingCallable = () -> persistenceAdapter.saveWorkout(null);
+  void shouldThrowExceptionIfExerciseCategoryIsNull() {
+    ThrowableAssert.ThrowingCallable throwingCallable =
+        () -> persistenceAdapter.saveExerciseCategory(null);
     assertThatThrownBy(throwingCallable).isInstanceOf(NullPointerException.class);
   }
 
   @Test
-  @Sql("/workout/insert-user.sql")
-  void shouldSaveAWorkout() {
+  @Sql("/exerciseCategory/insert-user.sql")
+  void shouldSaveAExerciseCategory() {
     // Given
-    var workoutId = UUID.fromString("d81ef4cd-a6b3-4375-ba8d-467e5a50a988");
+    var categoryId = UUID.fromString("ada096c6-736a-45fe-a17d-d97598befad8");
     var user =
         User.builder()
             .id(UUID.fromString("2e97b683-1b68-406d-b101-533c347e67ea"))
@@ -109,38 +109,38 @@ public class WorkoutPersistenceAdapterTest extends DatabaseTestContainer {
             .lastName("UserLastName")
             .email("user@email.com")
             .build();
-    var workout =
-        Workout.builder()
-            .id(workoutId)
-            .name("Workout1")
+    var category =
+        ExerciseCategory.builder()
+            .id(categoryId)
+            .name("Cat1")
             .owner(user)
             .createdAt(LocalDateTime.parse("2023-10-25T15:30:00"))
             .build();
     // When
-    var data = persistenceAdapter.saveWorkout(workout);
+    var data = persistenceAdapter.saveExerciseCategory(category);
 
     // Then
-    var workoutFound = persistenceAdapter.getWorkoutById(workoutId);
-    assertThat(workoutFound).isNotEmpty();
+    var categoryFound = persistenceAdapter.getExerciseCategoryById(categoryId);
+    assertThat(categoryFound).isNotEmpty();
     assertThat(data).isNotNull();
-    AssertionsForClassTypes.assertThat(data).usingRecursiveComparison().isEqualTo(workout);
-    AssertionsForClassTypes.assertThat(workoutFound.get())
+    AssertionsForClassTypes.assertThat(data).usingRecursiveComparison().isEqualTo(category);
+    AssertionsForClassTypes.assertThat(categoryFound.get())
         .usingRecursiveComparison()
-        .isEqualTo(workout);
+        .isEqualTo(category);
   }
 
   @Test
-  void shouldThrowExceptionWhenWorkoutIdIsNullForDelete() {
+  void shouldThrowExceptionWhenExerciseCategoryIdIsNullForDelete() {
     ThrowableAssert.ThrowingCallable throwingCallable =
-        () -> persistenceAdapter.deleteWorkout(null);
+        () -> persistenceAdapter.deleteExerciseCategory(null);
     assertThatThrownBy(throwingCallable).isInstanceOf(NullPointerException.class);
   }
 
   @Test
-  @Sql("/workout/insert-user.sql")
-  void shouldDeleteAWorkout() {
+  @Sql("/exerciseCategory/insert-user.sql")
+  void shouldDeleteAExerciseCategory() {
     // Given
-    var workoutId = UUID.fromString("d81ef4cd-a6b3-4375-ba8d-467e5a50a988");
+    var categoryId = UUID.fromString("ada096c6-736a-45fe-a17d-d97598befad8");
     var user =
         User.builder()
             .id(UUID.fromString("2e97b683-1b68-406d-b101-533c347e67ea"))
@@ -148,20 +148,20 @@ public class WorkoutPersistenceAdapterTest extends DatabaseTestContainer {
             .lastName("UserLastName")
             .email("user@email.com")
             .build();
-    var workout =
-        Workout.builder()
-            .id(workoutId)
-            .name("Workout1")
+    var category =
+        ExerciseCategory.builder()
+            .id(categoryId)
+            .name("Cat1")
             .owner(user)
             .createdAt(LocalDateTime.parse("2023-10-25T15:30:00"))
             .build();
-    persistenceAdapter.saveWorkout(workout);
+    persistenceAdapter.saveExerciseCategory(category);
 
     // When
-    persistenceAdapter.deleteWorkout(workoutId);
+    persistenceAdapter.deleteExerciseCategory(categoryId);
 
     // Then
-    var workoutFound = persistenceAdapter.getWorkoutById(workoutId);
-    assertThat(workoutFound).isEmpty();
+    var categoryFound = persistenceAdapter.getExerciseCategoryById(categoryId);
+    assertThat(categoryFound).isEmpty();
   }
 }

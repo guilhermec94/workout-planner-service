@@ -1,4 +1,4 @@
-package com.workout_planner_service.infrasctructure.adapters.outbound.persistence;
+package com.workout_planner_service.infrastructure.adapters.outbound.persistence;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -7,7 +7,6 @@ import com.workout_planner_service.domain.model.Exercise;
 import com.workout_planner_service.domain.model.ExerciseCategory;
 import com.workout_planner_service.domain.model.ExerciseType;
 import com.workout_planner_service.domain.model.User;
-import com.workout_planner_service.infrastructure.adapters.outbound.persistence.ExercisePersistenceAdapter;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import org.assertj.core.api.AssertionsForClassTypes;

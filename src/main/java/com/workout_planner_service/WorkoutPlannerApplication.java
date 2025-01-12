@@ -13,8 +13,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
       "com.workout_planner_service.infrastructure.adapters.outbound.persistence.mapper"
     })
 @EntityScan(
-    basePackages =
-        "com.workout_planner_service.infrastructure.adapters.outbound.persistence.entities")
+    basePackages ={
+        "com.workout_planner_service.infrastructure.adapters.outbound.persistence.entities",
+        "com.workout_planner_service.infrastructure.adapters.inbound.rest.dtos"})
 @EnableJpaRepositories(
     basePackages =
         "com.workout_planner_service.infrastructure.adapters.outbound.persistence.repositories")

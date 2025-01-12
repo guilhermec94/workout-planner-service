@@ -1,6 +1,7 @@
 package com.workout_planner_service.application;
 
 import com.workout_planner_service.application.ports.inbound.WorkoutUseCase;
+import com.workout_planner_service.application.ports.outbound.UserPersistencePort;
 import com.workout_planner_service.application.ports.outbound.WorkoutPersistencePort;
 import com.workout_planner_service.domain.model.Workout;
 import java.util.List;
@@ -11,8 +12,10 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class WorkoutService implements WorkoutUseCase {
+public class WorkoutUseCaseImpl implements WorkoutUseCase {
 
+  // 2e97b683-1b68-406d-b101-533c347e67ea implement port and fetch user
+  private final UserPersistencePort userPersistencePort;
   private final WorkoutPersistencePort workoutPersistencePort;
 
   @Override
