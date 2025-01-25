@@ -4,53 +4,42 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.workout_planner_service.infrastructure.adapters.inbound.rest.dtos.ExerciseInstructionDTO;
 import com.workout_planner_service.infrastructure.adapters.inbound.rest.dtos.PaginationDTO;
-import com.workout_planner_service.infrastructure.adapters.inbound.rest.dtos.WorkoutRecordDTO;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.springframework.lang.Nullable;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
 import java.util.*;
-import javax.annotation.Generated;
+import jakarta.annotation.Generated;
 
 /**
- * GetWorkoutRecords200Response
+ * ExerciseInstructionsDTO
  */
+@lombok.Builder @lombok.Getter
 
-@JsonTypeName("GetWorkoutRecords_200_response")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-01-11T17:20:05.992941900Z[Europe/Lisbon]", comments = "Generator version: 7.8.0")
-public class GetWorkoutRecords200Response {
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-01-25T15:35:46.008331Z[Europe/Lisbon]", comments = "Generator version: 7.11.0")
+public class ExerciseInstructionsDTO {
 
+  @lombok.Builder.Default
   @Valid
-  private List<@Valid WorkoutRecordDTO> data = new ArrayList<>();
+  private List<@Valid ExerciseInstructionDTO> data = new ArrayList<>();
 
-  private PaginationDTO pagination;
+  private @Nullable PaginationDTO pagination;
 
-  public GetWorkoutRecords200Response() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public GetWorkoutRecords200Response(List<@Valid WorkoutRecordDTO> data, PaginationDTO pagination) {
-    this.data = data;
-    this.pagination = pagination;
-  }
-
-  public GetWorkoutRecords200Response data(List<@Valid WorkoutRecordDTO> data) {
+  public ExerciseInstructionsDTO data(List<@Valid ExerciseInstructionDTO> data) {
     this.data = data;
     return this;
   }
 
-  public GetWorkoutRecords200Response addDataItem(WorkoutRecordDTO dataItem) {
+  public ExerciseInstructionsDTO addDataItem(ExerciseInstructionDTO dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }
@@ -62,18 +51,18 @@ public class GetWorkoutRecords200Response {
    * Get data
    * @return data
    */
-  @NotNull @Valid 
-  @Schema(name = "data", requiredMode = Schema.RequiredMode.REQUIRED)
+  @Valid 
+  @Schema(name = "data", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("data")
-  public List<@Valid WorkoutRecordDTO> getData() {
+  public List<@Valid ExerciseInstructionDTO> getData() {
     return data;
   }
 
-  public void setData(List<@Valid WorkoutRecordDTO> data) {
+  public void setData(List<@Valid ExerciseInstructionDTO> data) {
     this.data = data;
   }
 
-  public GetWorkoutRecords200Response pagination(PaginationDTO pagination) {
+  public ExerciseInstructionsDTO pagination(PaginationDTO pagination) {
     this.pagination = pagination;
     return this;
   }
@@ -82,8 +71,8 @@ public class GetWorkoutRecords200Response {
    * Get pagination
    * @return pagination
    */
-  @NotNull @Valid 
-  @Schema(name = "pagination", requiredMode = Schema.RequiredMode.REQUIRED)
+  @Valid 
+  @Schema(name = "pagination", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("pagination")
   public PaginationDTO getPagination() {
     return pagination;
@@ -101,9 +90,9 @@ public class GetWorkoutRecords200Response {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    GetWorkoutRecords200Response getWorkoutRecords200Response = (GetWorkoutRecords200Response) o;
-    return Objects.equals(this.data, getWorkoutRecords200Response.data) &&
-        Objects.equals(this.pagination, getWorkoutRecords200Response.pagination);
+    ExerciseInstructionsDTO exerciseInstructionsDTO = (ExerciseInstructionsDTO) o;
+    return Objects.equals(this.data, exerciseInstructionsDTO.data) &&
+        Objects.equals(this.pagination, exerciseInstructionsDTO.pagination);
   }
 
   @Override
@@ -114,7 +103,7 @@ public class GetWorkoutRecords200Response {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class GetWorkoutRecords200Response {\n");
+    sb.append("class ExerciseInstructionsDTO {\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("    pagination: ").append(toIndentedString(pagination)).append("\n");
     sb.append("}");

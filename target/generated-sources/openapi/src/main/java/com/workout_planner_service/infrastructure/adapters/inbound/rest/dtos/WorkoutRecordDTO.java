@@ -7,36 +7,38 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.workout_planner_service.infrastructure.adapters.inbound.rest.dtos.ExerciseDTO;
 import java.math.BigDecimal;
 import java.util.UUID;
+import org.springframework.lang.Nullable;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
 import java.util.*;
-import javax.annotation.Generated;
+import jakarta.annotation.Generated;
 
 /**
  * WorkoutRecordDTO
  */
+@lombok.Builder @lombok.Getter
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-01-11T17:20:05.992941900Z[Europe/Lisbon]", comments = "Generator version: 7.8.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-01-25T15:35:46.008331Z[Europe/Lisbon]", comments = "Generator version: 7.11.0")
 public class WorkoutRecordDTO {
 
-  private UUID id;
+  private @Nullable UUID id;
 
-  private ExerciseDTO exercise;
+  private @Nullable ExerciseDTO exercise;
 
-  private BigDecimal series;
+  private @Nullable BigDecimal series;
 
-  private BigDecimal reps;
+  private @Nullable BigDecimal reps;
 
-  private BigDecimal weight;
+  private @Nullable BigDecimal weight;
 
-  private BigDecimal distance;
+  private @Nullable BigDecimal distance;
 
-  private String time;
+  private @Nullable String time;
 
   public WorkoutRecordDTO id(UUID id) {
     this.id = id;

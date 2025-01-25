@@ -4,35 +4,26 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import org.springframework.lang.Nullable;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
 import java.util.*;
-import javax.annotation.Generated;
+import jakarta.annotation.Generated;
 
 /**
  * ErrorDTO
  */
+@lombok.Builder @lombok.Getter
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-01-11T17:20:05.992941900Z[Europe/Lisbon]", comments = "Generator version: 7.8.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-01-25T15:35:46.008331Z[Europe/Lisbon]", comments = "Generator version: 7.11.0")
 public class ErrorDTO {
 
-  private String message;
-
-  public ErrorDTO() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public ErrorDTO(String message) {
-    this.message = message;
-  }
+  private @Nullable String message;
 
   public ErrorDTO message(String message) {
     this.message = message;
@@ -43,8 +34,8 @@ public class ErrorDTO {
    * A human readable error message
    * @return message
    */
-  @NotNull 
-  @Schema(name = "message", description = "A human readable error message", requiredMode = Schema.RequiredMode.REQUIRED)
+  
+  @Schema(name = "message", description = "A human readable error message", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("message")
   public String getMessage() {
     return message;

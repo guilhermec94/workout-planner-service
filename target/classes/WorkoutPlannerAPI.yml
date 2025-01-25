@@ -164,17 +164,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/ExerciseDTO"
-                  pagination:
-                    $ref: "#/components/schemas/PaginationDTO"
-                required:
-                  - data
-                  - pagination
+                $ref: "#/components/schemas/ExerciseInstructionsDTO"
         500:
           description: Unexpected error
           content:
@@ -314,17 +304,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/ExerciseDTO"
-                  pagination:
-                    $ref: "#/components/schemas/PaginationDTO"
-                required:
-                  - data
-                  - pagination
+                $ref: "#/components/schemas/ExercisesDTO"
         500:
           description: Unexpected error
           content:
@@ -459,17 +439,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/WorkoutDTO"
-                  pagination:
-                    $ref: "#/components/schemas/PaginationDTO"
-                required:
-                  - data
-                  - pagination
+                $ref: "#/components/schemas/WorkoutsDTO"
         500:
           description: Unexpected error
           content:
@@ -592,17 +562,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/WorkoutRecordDTO"
-                  pagination:
-                    $ref: "#/components/schemas/PaginationDTO"
-                required:
-                  - data
-                  - pagination
+                $ref: "#/components/schemas/WorkoutRecordsDTO"
         500:
           description: Unexpected error
           content:
@@ -620,7 +580,7 @@ components:
 
     ErrorDTO:
       type: object
-      required:
+      x-ignore-required:
         - message
       properties:
         message:
@@ -640,7 +600,7 @@ components:
           type: integer
         total_records:
           type: integer
-      required:
+      x-ignore-required:
         - page
         - per_page
         - total_records
@@ -728,3 +688,43 @@ components:
           type: number
         time:
           type: string
+
+    WorkoutsDTO:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/WorkoutDTO"
+        pagination:
+          $ref: "#/components/schemas/PaginationDTO"
+
+    WorkoutRecordsDTO:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/WorkoutRecordDTO"
+        pagination:
+          $ref: "#/components/schemas/PaginationDTO"
+
+    ExercisesDTO:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/ExercisesDTO"
+        pagination:
+          $ref: "#/components/schemas/PaginationDTO"
+
+    ExerciseInstructionsDTO:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/ExerciseInstructionDTO"
+        pagination:
+          $ref: "#/components/schemas/PaginationDTO"

@@ -4,41 +4,30 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import org.springframework.lang.Nullable;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
 import java.util.*;
-import javax.annotation.Generated;
+import jakarta.annotation.Generated;
 
 /**
  * PaginationDTO
  */
+@lombok.Builder @lombok.Getter
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-01-11T17:20:05.992941900Z[Europe/Lisbon]", comments = "Generator version: 7.8.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-01-25T15:35:46.008331Z[Europe/Lisbon]", comments = "Generator version: 7.11.0")
 public class PaginationDTO {
 
-  private Integer page;
+  private @Nullable Integer page;
 
-  private Integer perPage;
+  private @Nullable Integer perPage;
 
-  private Integer totalRecords;
-
-  public PaginationDTO() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public PaginationDTO(Integer page, Integer perPage, Integer totalRecords) {
-    this.page = page;
-    this.perPage = perPage;
-    this.totalRecords = totalRecords;
-  }
+  private @Nullable Integer totalRecords;
 
   public PaginationDTO page(Integer page) {
     this.page = page;
@@ -49,8 +38,8 @@ public class PaginationDTO {
    * Get page
    * @return page
    */
-  @NotNull 
-  @Schema(name = "page", requiredMode = Schema.RequiredMode.REQUIRED)
+  
+  @Schema(name = "page", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("page")
   public Integer getPage() {
     return page;
@@ -69,8 +58,8 @@ public class PaginationDTO {
    * Get perPage
    * @return perPage
    */
-  @NotNull 
-  @Schema(name = "per_page", requiredMode = Schema.RequiredMode.REQUIRED)
+  
+  @Schema(name = "per_page", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("per_page")
   public Integer getPerPage() {
     return perPage;
@@ -89,8 +78,8 @@ public class PaginationDTO {
    * Get totalRecords
    * @return totalRecords
    */
-  @NotNull 
-  @Schema(name = "total_records", requiredMode = Schema.RequiredMode.REQUIRED)
+  
+  @Schema(name = "total_records", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("total_records")
   public Integer getTotalRecords() {
     return totalRecords;

@@ -5,32 +5,34 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import java.util.UUID;
+import org.springframework.lang.Nullable;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
 import java.util.*;
-import javax.annotation.Generated;
+import jakarta.annotation.Generated;
 
 /**
  * ExerciseDTO
  */
+@lombok.Builder @lombok.Getter
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-01-11T17:20:05.992941900Z[Europe/Lisbon]", comments = "Generator version: 7.8.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-01-25T15:35:46.008331Z[Europe/Lisbon]", comments = "Generator version: 7.11.0")
 public class ExerciseDTO {
 
-  private UUID id;
+  private @Nullable UUID id;
 
-  private String name;
+  private @Nullable String name;
 
-  private UUID categoryId;
+  private @Nullable UUID categoryId;
 
-  private UUID exerciseTypeId;
+  private @Nullable UUID exerciseTypeId;
 
-  private String creationDate;
+  private @Nullable String creationDate;
 
   public ExerciseDTO id(UUID id) {
     this.id = id;
