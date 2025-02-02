@@ -6,7 +6,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.workout_planner_service.infrastructure.adapters.inbound.rest.dtos.CategoryDTO;
 import com.workout_planner_service.infrastructure.adapters.inbound.rest.dtos.ExerciseTypeDTO;
+import java.time.OffsetDateTime;
 import java.util.UUID;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
@@ -23,7 +25,7 @@ import jakarta.annotation.Generated;
  */
 @lombok.Builder @lombok.Getter
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-01-25T15:35:46.008331Z[Europe/Lisbon]", comments = "Generator version: 7.11.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-02-02T12:15:38.599883400Z[Europe/Lisbon]", comments = "Generator version: 7.11.0")
 public class ExerciseDetailDTO {
 
   private @Nullable UUID id;
@@ -34,7 +36,8 @@ public class ExerciseDetailDTO {
 
   private @Nullable ExerciseTypeDTO exerciseType;
 
-  private @Nullable String creationDate;
+  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+  private @Nullable OffsetDateTime createdAt;
 
   public ExerciseDetailDTO id(UUID id) {
     this.id = id;
@@ -116,24 +119,24 @@ public class ExerciseDetailDTO {
     this.exerciseType = exerciseType;
   }
 
-  public ExerciseDetailDTO creationDate(String creationDate) {
-    this.creationDate = creationDate;
+  public ExerciseDetailDTO createdAt(OffsetDateTime createdAt) {
+    this.createdAt = createdAt;
     return this;
   }
 
   /**
-   * Get creationDate
-   * @return creationDate
+   * Get createdAt
+   * @return createdAt
    */
-  
-  @Schema(name = "creationDate", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("creationDate")
-  public String getCreationDate() {
-    return creationDate;
+  @Valid 
+  @Schema(name = "createdAt", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("createdAt")
+  public OffsetDateTime getCreatedAt() {
+    return createdAt;
   }
 
-  public void setCreationDate(String creationDate) {
-    this.creationDate = creationDate;
+  public void setCreatedAt(OffsetDateTime createdAt) {
+    this.createdAt = createdAt;
   }
 
   @Override
@@ -149,12 +152,12 @@ public class ExerciseDetailDTO {
         Objects.equals(this.name, exerciseDetailDTO.name) &&
         Objects.equals(this.category, exerciseDetailDTO.category) &&
         Objects.equals(this.exerciseType, exerciseDetailDTO.exerciseType) &&
-        Objects.equals(this.creationDate, exerciseDetailDTO.creationDate);
+        Objects.equals(this.createdAt, exerciseDetailDTO.createdAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, category, exerciseType, creationDate);
+    return Objects.hash(id, name, category, exerciseType, createdAt);
   }
 
   @Override
@@ -165,7 +168,7 @@ public class ExerciseDetailDTO {
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    category: ").append(toIndentedString(category)).append("\n");
     sb.append("    exerciseType: ").append(toIndentedString(exerciseType)).append("\n");
-    sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("}");
     return sb.toString();
   }

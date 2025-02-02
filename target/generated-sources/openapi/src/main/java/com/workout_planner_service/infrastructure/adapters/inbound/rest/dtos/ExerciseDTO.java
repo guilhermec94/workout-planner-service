@@ -4,7 +4,9 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import java.time.OffsetDateTime;
 import java.util.UUID;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
@@ -21,7 +23,7 @@ import jakarta.annotation.Generated;
  */
 @lombok.Builder @lombok.Getter
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-01-25T15:35:46.008331Z[Europe/Lisbon]", comments = "Generator version: 7.11.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-02-02T12:15:38.599883400Z[Europe/Lisbon]", comments = "Generator version: 7.11.0")
 public class ExerciseDTO {
 
   private @Nullable UUID id;
@@ -32,7 +34,8 @@ public class ExerciseDTO {
 
   private @Nullable UUID exerciseTypeId;
 
-  private @Nullable String creationDate;
+  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+  private @Nullable OffsetDateTime createdAt;
 
   public ExerciseDTO id(UUID id) {
     this.id = id;
@@ -114,24 +117,24 @@ public class ExerciseDTO {
     this.exerciseTypeId = exerciseTypeId;
   }
 
-  public ExerciseDTO creationDate(String creationDate) {
-    this.creationDate = creationDate;
+  public ExerciseDTO createdAt(OffsetDateTime createdAt) {
+    this.createdAt = createdAt;
     return this;
   }
 
   /**
-   * Get creationDate
-   * @return creationDate
+   * Get createdAt
+   * @return createdAt
    */
-  
-  @Schema(name = "creationDate", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("creationDate")
-  public String getCreationDate() {
-    return creationDate;
+  @Valid 
+  @Schema(name = "createdAt", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("createdAt")
+  public OffsetDateTime getCreatedAt() {
+    return createdAt;
   }
 
-  public void setCreationDate(String creationDate) {
-    this.creationDate = creationDate;
+  public void setCreatedAt(OffsetDateTime createdAt) {
+    this.createdAt = createdAt;
   }
 
   @Override
@@ -147,12 +150,12 @@ public class ExerciseDTO {
         Objects.equals(this.name, exerciseDTO.name) &&
         Objects.equals(this.categoryId, exerciseDTO.categoryId) &&
         Objects.equals(this.exerciseTypeId, exerciseDTO.exerciseTypeId) &&
-        Objects.equals(this.creationDate, exerciseDTO.creationDate);
+        Objects.equals(this.createdAt, exerciseDTO.createdAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, categoryId, exerciseTypeId, creationDate);
+    return Objects.hash(id, name, categoryId, exerciseTypeId, createdAt);
   }
 
   @Override
@@ -163,7 +166,7 @@ public class ExerciseDTO {
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    categoryId: ").append(toIndentedString(categoryId)).append("\n");
     sb.append("    exerciseTypeId: ").append(toIndentedString(exerciseTypeId)).append("\n");
-    sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("}");
     return sb.toString();
   }

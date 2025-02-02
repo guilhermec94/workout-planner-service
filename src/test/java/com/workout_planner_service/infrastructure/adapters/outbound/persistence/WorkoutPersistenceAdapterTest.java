@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.workout_planner_service.domain.model.User;
 import com.workout_planner_service.domain.model.Workout;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 import org.assertj.core.api.AssertionsForClassTypes;
 import org.assertj.core.api.ThrowableAssert;
@@ -45,7 +45,7 @@ public class WorkoutPersistenceAdapterTest extends DatabaseTestContainer {
             .id(UUID.fromString("d81ef4cd-a6b3-4375-ba8d-467e5a50a988"))
             .name("Workout1")
             .owner(user)
-            .createdAt(LocalDateTime.parse("2023-10-25T15:30:00"))
+            .createdAt(OffsetDateTime.parse("2023-10-25T15:30:00"))
             .build();
     // When
     var data = persistenceAdapter.getAllWorkouts(userId);
@@ -80,7 +80,7 @@ public class WorkoutPersistenceAdapterTest extends DatabaseTestContainer {
             .id(workoutId)
             .name("Workout1")
             .owner(user)
-            .createdAt(LocalDateTime.parse("2023-10-25T15:30:00"))
+            .createdAt(OffsetDateTime.parse("2023-10-25T15:30:00"))
             .build();
     // When
     var data = persistenceAdapter.getWorkoutById(workoutId);
@@ -113,7 +113,7 @@ public class WorkoutPersistenceAdapterTest extends DatabaseTestContainer {
             .id(workoutId)
             .name("Workout1")
             .owner(user)
-            .createdAt(LocalDateTime.parse("2023-10-25T15:30:00"))
+            .createdAt(OffsetDateTime.parse("2023-10-25T15:30:00"))
             .build();
     // When
     var data = persistenceAdapter.saveWorkout(workout);
@@ -152,7 +152,7 @@ public class WorkoutPersistenceAdapterTest extends DatabaseTestContainer {
             .id(workoutId)
             .name("Workout1")
             .owner(user)
-            .createdAt(LocalDateTime.parse("2023-10-25T15:30:00"))
+            .createdAt(OffsetDateTime.parse("2023-10-25T15:30:00"))
             .build();
     persistenceAdapter.saveWorkout(workout);
 

@@ -1,6 +1,6 @@
 package com.workout_planner_service.infrastructure.adapters.outbound.persistence;
 
-import com.workout_planner_service.application.ports.outbound.WorkoutPersistencePort;
+import com.workout_planner_service.application.ports.outbound.persistence.WorkoutPersistencePort;
 import com.workout_planner_service.domain.model.Workout;
 import com.workout_planner_service.infrastructure.adapters.outbound.persistence.mappers.WorkoutJpaPersistenceMapper;
 import com.workout_planner_service.infrastructure.adapters.outbound.persistence.repositories.WorkoutJpaRepository;

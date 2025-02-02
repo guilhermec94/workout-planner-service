@@ -1,4 +1,4 @@
-package com.workout_planner_service.application.ports.outbound;
+package com.workout_planner_service.application.ports.outbound.persistence;
 
 import com.workout_planner_service.domain.model.Workout;
 import java.util.List;
