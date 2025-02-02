@@ -19,12 +19,12 @@ import java.util.*;
 import jakarta.annotation.Generated;
 
 /**
- * WorkoutDTO
+ * ExerciseCategoryDTO
  */
 @lombok.Builder @lombok.Getter
 
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-02-02T14:38:13.964736100Z[Europe/Lisbon]", comments = "Generator version: 7.11.0")
-public class WorkoutDTO {
+public class ExerciseCategoryDTO {
 
   private @Nullable UUID id;
 
@@ -33,7 +33,7 @@ public class WorkoutDTO {
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
   private @Nullable OffsetDateTime createdAt;
 
-  public WorkoutDTO id(UUID id) {
+  public ExerciseCategoryDTO id(UUID id) {
     this.id = id;
     return this;
   }
@@ -53,7 +53,7 @@ public class WorkoutDTO {
     this.id = id;
   }
 
-  public WorkoutDTO name(String name) {
+  public ExerciseCategoryDTO name(String name) {
     this.name = name;
     return this;
   }
@@ -73,7 +73,7 @@ public class WorkoutDTO {
     this.name = name;
   }
 
-  public WorkoutDTO createdAt(OffsetDateTime createdAt) {
+  public ExerciseCategoryDTO createdAt(OffsetDateTime createdAt) {
     this.createdAt = createdAt;
     return this;
   }
@@ -101,10 +101,10 @@ public class WorkoutDTO {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    WorkoutDTO workoutDTO = (WorkoutDTO) o;
-    return Objects.equals(this.id, workoutDTO.id) &&
-        Objects.equals(this.name, workoutDTO.name) &&
-        Objects.equals(this.createdAt, workoutDTO.createdAt);
+    ExerciseCategoryDTO exerciseCategoryDTO = (ExerciseCategoryDTO) o;
+    return Objects.equals(this.id, exerciseCategoryDTO.id) &&
+        Objects.equals(this.name, exerciseCategoryDTO.name) &&
+        Objects.equals(this.createdAt, exerciseCategoryDTO.createdAt);
   }
 
   @Override
@@ -115,7 +115,7 @@ public class WorkoutDTO {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class WorkoutDTO {\n");
+    sb.append("class ExerciseCategoryDTO {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");

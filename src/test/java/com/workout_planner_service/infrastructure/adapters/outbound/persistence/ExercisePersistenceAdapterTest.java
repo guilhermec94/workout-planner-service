@@ -8,6 +8,7 @@ import com.workout_planner_service.domain.model.ExerciseCategory;
 import com.workout_planner_service.domain.model.ExerciseType;
 import com.workout_planner_service.domain.model.User;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 import org.assertj.core.api.AssertionsForClassTypes;
 import org.assertj.core.api.ThrowableAssert;
@@ -49,7 +50,7 @@ public class ExercisePersistenceAdapterTest extends DatabaseTestContainer {
             .id(UUID.fromString("ada096c6-736a-45fe-a17d-d97598befad8"))
             .name("Cat1")
             .owner(user)
-            .createdAt(LocalDateTime.parse("2023-10-25T15:30:00"))
+            .createdAt(OffsetDateTime.parse("2023-10-25T15:30:00"))
             .build();
     var exerciseType =
         ExerciseType.builder()
@@ -100,7 +101,7 @@ public class ExercisePersistenceAdapterTest extends DatabaseTestContainer {
             .id(UUID.fromString("ada096c6-736a-45fe-a17d-d97598befad8"))
             .name("Cat1")
             .owner(user)
-            .createdAt(LocalDateTime.parse("2023-10-25T15:30:00"))
+            .createdAt(OffsetDateTime.parse("2023-10-25T15:30:00"))
             .build();
     var exerciseType =
         ExerciseType.builder()
@@ -149,7 +150,7 @@ public class ExercisePersistenceAdapterTest extends DatabaseTestContainer {
             .id(UUID.fromString("ada096c6-736a-45fe-a17d-d97598befad8"))
             .name("Cat1")
             .owner(user)
-            .createdAt(LocalDateTime.parse("2023-10-25T15:30:00"))
+            .createdAt(OffsetDateTime.parse("2023-10-25T15:30:00"))
             .build();
     var exerciseType =
         ExerciseType.builder()
@@ -204,7 +205,7 @@ public class ExercisePersistenceAdapterTest extends DatabaseTestContainer {
             .id(UUID.fromString("ada096c6-736a-45fe-a17d-d97598befad8"))
             .name("Cat1")
             .owner(user)
-            .createdAt(LocalDateTime.parse("2023-10-25T15:30:00"))
+            .createdAt(OffsetDateTime.parse("2023-10-25T15:30:00"))
             .build();
     var exerciseType =
         ExerciseType.builder()

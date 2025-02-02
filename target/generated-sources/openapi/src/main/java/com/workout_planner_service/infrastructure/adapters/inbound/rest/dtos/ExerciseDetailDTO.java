@@ -4,7 +4,7 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.workout_planner_service.infrastructure.adapters.inbound.rest.dtos.CategoryDTO;
+import com.workout_planner_service.infrastructure.adapters.inbound.rest.dtos.ExerciseCategoryDTO;
 import com.workout_planner_service.infrastructure.adapters.inbound.rest.dtos.ExerciseTypeDTO;
 import java.time.OffsetDateTime;
 import java.util.UUID;
@@ -25,14 +25,14 @@ import jakarta.annotation.Generated;
  */
 @lombok.Builder @lombok.Getter
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-02-02T12:15:38.599883400Z[Europe/Lisbon]", comments = "Generator version: 7.11.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-02-02T14:38:13.964736100Z[Europe/Lisbon]", comments = "Generator version: 7.11.0")
 public class ExerciseDetailDTO {
 
   private @Nullable UUID id;
 
   private @Nullable String name;
 
-  private @Nullable CategoryDTO category;
+  private @Nullable ExerciseCategoryDTO category;
 
   private @Nullable ExerciseTypeDTO exerciseType;
 
@@ -79,7 +79,7 @@ public class ExerciseDetailDTO {
     this.name = name;
   }
 
-  public ExerciseDetailDTO category(CategoryDTO category) {
+  public ExerciseDetailDTO category(ExerciseCategoryDTO category) {
     this.category = category;
     return this;
   }
@@ -91,11 +91,11 @@ public class ExerciseDetailDTO {
   @Valid 
   @Schema(name = "category", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("category")
-  public CategoryDTO getCategory() {
+  public ExerciseCategoryDTO getCategory() {
     return category;
   }
 
-  public void setCategory(CategoryDTO category) {
+  public void setCategory(ExerciseCategoryDTO category) {
     this.category = category;
   }
 

@@ -35,7 +35,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CategoryDTO"
+              $ref: "#/components/schemas/ExerciseCategoryDTO"
       responses:
         201:
           description: The newly created category
@@ -56,7 +56,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/CategoryDTO"
+                  $ref: "#/components/schemas/ExerciseCategoryDTO"
         500:
           description: Unexpected error
           content:
@@ -620,17 +620,27 @@ components:
           type: string
           format: date-time
 
-    CategoryDTO:
+    ExerciseCategoryDTO:
       type: object
       properties:
         id:
           $ref: "#/components/schemas/Id"
+        name:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
 
     ExerciseTypeDTO:
       type: object
       properties:
         id:
           $ref: "#/components/schemas/Id"
+        name:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
 
     ExerciseDetailDTO:
       type: object
@@ -640,7 +650,7 @@ components:
         name:
           type: string
         category:
-          $ref: "#/components/schemas/CategoryDTO"
+          $ref: "#/components/schemas/ExerciseCategoryDTO"
         exerciseType:
           $ref: "#/components/schemas/ExerciseTypeDTO"
         createdAt:

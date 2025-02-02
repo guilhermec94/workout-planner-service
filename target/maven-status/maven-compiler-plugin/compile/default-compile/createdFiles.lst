@@ -18,8 +18,8 @@ com\workout_planner_service\application\exceptions\WorkoutNotFoundException.clas
 com\workout_planner_service\application\ports\inbound\ExerciseUseCase.class
 com\workout_planner_service\application\ports\outbound\persistence\ExerciseCategoryPersistencePort.class
 com\workout_planner_service\infrastructure\adapters\inbound\rest\dtos\ExerciseDetailDTO$ExerciseDetailDTOBuilder.class
+com\workout_planner_service\application\ports\ExerciseCategoryMapper.class
 com\workout_planner_service\infrastructure\adapters\inbound\rest\dtos\ExerciseTypeDTO.class
-com\workout_planner_service\infrastructure\adapters\inbound\rest\dtos\CategoryDTO$CategoryDTOBuilder.class
 com\workout_planner_service\infrastructure\adapters\outbound\persistence\entities\ExerciseCategoryJpaEntity$ExerciseCategoryJpaEntityBuilder.class
 com\workout_planner_service\infrastructure\adapters\inbound\rest\dtos\ErrorDTO.class
 com\workout_planner_service\infrastructure\adapters\inbound\rest\dtos\WorkoutsDTO.class
@@ -32,9 +32,12 @@ com\workout_planner_service\domain\model\Exercise.class
 com\workout_planner_service\infrastructure\adapters\inbound\rest\dtos\ExerciseDTO.class
 com\workout_planner_service\infrastructure\adapters\outbound\persistence\mappers\WorkoutJpaPersistenceMapper.class
 com\workout_planner_service\domain\model\User.class
+com\workout_planner_service\infrastructure\adapters\inbound\rest\ExerciseCategoryRestAdapter.class
 com\workout_planner_service\domain\model\ExerciseType.class
 com\workout_planner_service\infrastructure\adapters\inbound\rest\dtos\ExercisesDTO.class
 com\workout_planner_service\infrastructure\adapters\outbound\persistence\ExerciseCategoryPersistenceAdapter.class
+com\workout_planner_service\infrastructure\adapters\inbound\rest\dtos\ExerciseCategoryDTO.class
+com\workout_planner_service\application\exceptions\ExerciseCategoryNotFoundException.class
 com\workout_planner_service\infrastructure\adapters\outbound\persistence\ExercisePersistenceAdapter.class
 com\workout_planner_service\domain\model\ExerciseCategory.class
 com\workout_planner_service\infrastructure\adapters\outbound\persistence\repositories\ExerciseCategoryJpaRepository.class
@@ -48,11 +51,11 @@ com\workout_planner_service\infrastructure\adapters\inbound\rest\dtos\WorkoutRec
 com\workout_planner_service\infrastructure\adapters\inbound\rest\dtos\WorkoutsDTO$WorkoutsDTOBuilder.class
 com\workout_planner_service\domain\model\User$UserBuilder.class
 com\workout_planner_service\infrastructure\adapters\outbound\persistence\entities\ExerciseTypeJpaEntity.class
+com\workout_planner_service\infrastructure\adapters\inbound\rest\dtos\ExerciseCategoryDTO$ExerciseCategoryDTOBuilder.class
 com\workout_planner_service\infrastructure\adapters\outbound\persistence\mappers\ExerciseCategoryJpaPersistenceMapper.class
 com\workout_planner_service\infrastructure\adapters\inbound\rest\WorkoutRestAdapter.class
 com\workout_planner_service\infrastructure\adapters\inbound\rest\dtos\ExerciseInstructionsDTO$ExerciseInstructionsDTOBuilder.class
 com\workout_planner_service\infrastructure\adapters\inbound\rest\dtos\PaginationDTO.class
-com\workout_planner_service\infrastructure\adapters\inbound\rest\dtos\CategoryDTO.class
 com\workout_planner_service\application\ports\outbound\persistence\UserPersistencePort.class
 com\workout_planner_service\infrastructure\adapters\outbound\persistence\entities\ExerciseCategoryJpaEntity.class
 com\workout_planner_service\domain\model\ExerciseCategory$ExerciseCategoryBuilder.class
@@ -62,6 +65,7 @@ com\workout_planner_service\infrastructure\adapters\outbound\persistence\mappers
 com\workout_planner_service\infrastructure\adapters\inbound\rest\dtos\ErrorDTO$ErrorDTOBuilder.class
 com\workout_planner_service\infrastructure\adapters\outbound\persistence\repositories\UserJpaRepository.class
 com\workout_planner_service\infrastructure\adapters\outbound\persistence\WorkoutPersistenceAdapter.class
+com\workout_planner_service\application\ExerciseCategoryUseCaseImpl.class
 com\workout_planner_service\infrastructure\adapters\outbound\persistence\repositories\WorkoutJpaRepository.class
 com\workout_planner_service\application\ports\inbound\WorkoutUseCase.class
 com\workout_planner_service\infrastructure\adapters\inbound\rest\dtos\WorkoutRecordDTO$WorkoutRecordDTOBuilder.class

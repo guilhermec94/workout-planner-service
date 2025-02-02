@@ -1,5 +1,8 @@
+C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\application\exceptions\ExerciseCategoryNotFoundException.java
 C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\application\exceptions\UserNotFoundException.java
 C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\application\exceptions\WorkoutNotFoundException.java
+C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\application\ExerciseCategoryUseCaseImpl.java
+C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\application\ports\ExerciseCategoryMapper.java
 C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\application\ports\inbound\ExerciseCategoryUseCase.java
 C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\application\ports\inbound\ExerciseUseCase.java
 C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\application\ports\inbound\WorkoutUseCase.java
@@ -14,6 +17,7 @@ C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\worko
 C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\domain\model\ExerciseType.java
 C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\domain\model\User.java
 C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\domain\model\Workout.java
+C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\infrastructure\adapters\inbound\rest\ExerciseCategoryRestAdapter.java
 C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\infrastructure\adapters\inbound\rest\WorkoutRestAdapter.java
 C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\infrastructure\adapters\outbound\persistence\entities\ExerciseCategoryJpaEntity.java
 C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\infrastructure\adapters\outbound\persistence\entities\ExerciseJpaEntity.java
@@ -33,8 +37,8 @@ C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\worko
 C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\infrastructure\adapters\outbound\persistence\UserPersistenceAdapter.java
 C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\infrastructure\adapters\outbound\persistence\WorkoutPersistenceAdapter.java
 C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\WorkoutPlannerApplication.java
-C:\Users\JimBob\Documents\GitHub\workout-planner-service\target\generated-sources\openapi\src\main\java\com\workout_planner_service\infrastructure\adapters\inbound\rest\dtos\CategoryDTO.java
 C:\Users\JimBob\Documents\GitHub\workout-planner-service\target\generated-sources\openapi\src\main\java\com\workout_planner_service\infrastructure\adapters\inbound\rest\dtos\ErrorDTO.java
+C:\Users\JimBob\Documents\GitHub\workout-planner-service\target\generated-sources\openapi\src\main\java\com\workout_planner_service\infrastructure\adapters\inbound\rest\dtos\ExerciseCategoryDTO.java
 C:\Users\JimBob\Documents\GitHub\workout-planner-service\target\generated-sources\openapi\src\main\java\com\workout_planner_service\infrastructure\adapters\inbound\rest\dtos\ExerciseDetailDTO.java
 C:\Users\JimBob\Documents\GitHub\workout-planner-service\target\generated-sources\openapi\src\main\java\com\workout_planner_service\infrastructure\adapters\inbound\rest\dtos\ExerciseDTO.java
 C:\Users\JimBob\Documents\GitHub\workout-planner-service\target\generated-sources\openapi\src\main\java\com\workout_planner_service\infrastructure\adapters\inbound\rest\dtos\ExerciseInstructionDTO.java

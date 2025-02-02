@@ -4,16 +4,17 @@ import com.workout_planner_service.infrastructure.adapters.inbound.rest.dtos.Wor
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import lombok.NonNull;
 
 public interface WorkoutUseCase {
 
-  List<WorkoutDTO> getAllWorkouts(UUID userId);
+  List<WorkoutDTO> getAllWorkouts(@NonNull UUID userId);
 
-  Optional<WorkoutDTO> getWorkoutById(UUID id);
+  Optional<WorkoutDTO> getWorkoutById(@NonNull UUID id);
 
-  WorkoutDTO createWorkout(WorkoutDTO workout, UUID userId);
+  WorkoutDTO createWorkout(@NonNull WorkoutDTO workout, @NonNull UUID userId);
 
-  void patchWorkout(WorkoutDTO workout, UUID id, UUID userId);
+  void patchWorkout(@NonNull WorkoutDTO workout, @NonNull UUID id, @NonNull UUID userId);
 
-  void deleteWorkout(UUID id);
+  void deleteWorkout(@NonNull UUID id);
 }

@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.workout_planner_service.domain.model.ExerciseCategory;
 import com.workout_planner_service.domain.model.User;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 import org.assertj.core.api.AssertionsForClassTypes;
 import org.assertj.core.api.ThrowableAssert;
@@ -45,7 +45,7 @@ public class ExerciseCategoryPersistenceAdapterTest extends DatabaseTestContaine
             .id(UUID.fromString("ada096c6-736a-45fe-a17d-d97598befad8"))
             .name("Cat1")
             .owner(user)
-            .createdAt(LocalDateTime.parse("2023-10-25T15:30:00"))
+            .createdAt(OffsetDateTime.parse("2023-10-25T15:30:00"))
             .build();
     // When
     var data = persistenceAdapter.getAllExerciseCategories(userId);
@@ -80,7 +80,7 @@ public class ExerciseCategoryPersistenceAdapterTest extends DatabaseTestContaine
             .id(categoryId)
             .name("Cat1")
             .owner(user)
-            .createdAt(LocalDateTime.parse("2023-10-25T15:30:00"))
+            .createdAt(OffsetDateTime.parse("2023-10-25T15:30:00"))
             .build();
     // When
     var data = persistenceAdapter.getExerciseCategoryById(categoryId);
@@ -114,7 +114,7 @@ public class ExerciseCategoryPersistenceAdapterTest extends DatabaseTestContaine
             .id(categoryId)
             .name("Cat1")
             .owner(user)
-            .createdAt(LocalDateTime.parse("2023-10-25T15:30:00"))
+            .createdAt(OffsetDateTime.parse("2023-10-25T15:30:00"))
             .build();
     // When
     var data = persistenceAdapter.saveExerciseCategory(category);
@@ -153,7 +153,7 @@ public class ExerciseCategoryPersistenceAdapterTest extends DatabaseTestContaine
             .id(categoryId)
             .name("Cat1")
             .owner(user)
-            .createdAt(LocalDateTime.parse("2023-10-25T15:30:00"))
+            .createdAt(OffsetDateTime.parse("2023-10-25T15:30:00"))
             .build();
     persistenceAdapter.saveExerciseCategory(category);
 

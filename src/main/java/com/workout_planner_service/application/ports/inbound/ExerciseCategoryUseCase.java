@@ -1,20 +1,22 @@
 package com.workout_planner_service.application.ports.inbound;
 
-import com.workout_planner_service.domain.model.ExerciseCategory;
-import com.workout_planner_service.infrastructure.adapters.inbound.rest.dtos.CategoryDTO;
+import com.workout_planner_service.infrastructure.adapters.inbound.rest.dtos.ExerciseCategoryDTO;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import lombok.NonNull;
 
 public interface ExerciseCategoryUseCase {
 
-  List<CategoryDTO> getAllExerciseCategories(UUID userId);
+  List<ExerciseCategoryDTO> getAllExerciseCategories(@NonNull UUID userId);
 
-  Optional<CategoryDTO> getExerciseCategoryById(UUID id);
+  Optional<ExerciseCategoryDTO> getExerciseCategoryById(@NonNull UUID id);
 
-  CategoryDTO createExerciseCategory(ExerciseCategory category);
+  ExerciseCategoryDTO createExerciseCategory(
+      @NonNull ExerciseCategoryDTO dto, @NonNull UUID userId);
 
-  void patchExerciseCategory(ExerciseCategory category);
+  void patchExerciseCategory(
+      @NonNull ExerciseCategoryDTO dto, @NonNull UUID id, @NonNull UUID userId);
 
-  void deleteExerciseCategory(UUID id);
+  void deleteExerciseCategory(@NonNull UUID id);
 }
