@@ -7,7 +7,6 @@ import com.workout_planner_service.domain.model.Exercise;
 import com.workout_planner_service.domain.model.ExerciseCategory;
 import com.workout_planner_service.domain.model.ExerciseType;
 import com.workout_planner_service.domain.model.User;
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 import org.assertj.core.api.AssertionsForClassTypes;
@@ -64,7 +63,7 @@ public class ExercisePersistenceAdapterTest extends DatabaseTestContainer {
             .category(category)
             .type(exerciseType)
             .owner(user)
-            .createdAt(LocalDateTime.parse("2023-10-25T15:30:00"))
+            .createdAt(OffsetDateTime.parse("2023-10-25T15:30:00"))
             .build();
     // When
     var data = persistenceAdapter.getAllExercises(userId);
@@ -115,7 +114,7 @@ public class ExercisePersistenceAdapterTest extends DatabaseTestContainer {
             .category(category)
             .type(exerciseType)
             .owner(user)
-            .createdAt(LocalDateTime.parse("2023-10-25T15:30:00"))
+            .createdAt(OffsetDateTime.parse("2023-10-25T15:30:00"))
             .build();
     // When
     var data = persistenceAdapter.getExerciseById(exerciseId);
@@ -164,7 +163,7 @@ public class ExercisePersistenceAdapterTest extends DatabaseTestContainer {
             .category(category)
             .type(exerciseType)
             .owner(user)
-            .createdAt(LocalDateTime.parse("2023-10-25T15:30:00"))
+            .createdAt(OffsetDateTime.parse("2023-10-25T15:30:00"))
             .build();
     // When
     var data = persistenceAdapter.saveExercise(exercise);
@@ -219,7 +218,7 @@ public class ExercisePersistenceAdapterTest extends DatabaseTestContainer {
             .category(category)
             .type(exerciseType)
             .owner(user)
-            .createdAt(LocalDateTime.parse("2023-10-25T15:30:00"))
+            .createdAt(OffsetDateTime.parse("2023-10-25T15:30:00"))
             .build();
     persistenceAdapter.saveExercise(exercise);
 

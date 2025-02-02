@@ -2,7 +2,7 @@ package com.workout_planner_service.application;
 
 import com.workout_planner_service.application.exceptions.ExerciseCategoryNotFoundException;
 import com.workout_planner_service.application.exceptions.UserNotFoundException;
-import com.workout_planner_service.application.ports.ExerciseCategoryMapper;
+import com.workout_planner_service.application.ports.ExerciseCategoryEntityMapper;
 import com.workout_planner_service.application.ports.inbound.ExerciseCategoryUseCase;
 import com.workout_planner_service.application.ports.outbound.persistence.ExerciseCategoryPersistencePort;
 import com.workout_planner_service.application.ports.outbound.persistence.UserPersistencePort;
@@ -20,7 +20,7 @@ public class ExerciseCategoryUseCaseImpl implements ExerciseCategoryUseCase {
 
   private final UserPersistencePort userPersistencePort;
   private final ExerciseCategoryPersistencePort exerciseCategoryPersistencePort;
-  private final ExerciseCategoryMapper mapper;
+  private final ExerciseCategoryEntityMapper mapper;
 
   @Override
   public List<ExerciseCategoryDTO> getAllExerciseCategories(@NonNull UUID userId) {

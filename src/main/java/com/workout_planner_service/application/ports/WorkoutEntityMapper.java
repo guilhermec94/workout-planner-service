@@ -6,9 +6,9 @@ import com.workout_planner_service.infrastructure.adapters.inbound.rest.dtos.Wor
 import java.time.OffsetDateTime;
 import java.util.Objects;
 import org.mapstruct.ap.internal.util.Strings;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class WorkoutEntityMapper {
 
   public Workout toDomain(WorkoutDTO dto, User user) {

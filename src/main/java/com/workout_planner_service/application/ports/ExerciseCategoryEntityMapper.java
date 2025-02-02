@@ -6,8 +6,10 @@ import com.workout_planner_service.infrastructure.adapters.inbound.rest.dtos.Exe
 import java.time.OffsetDateTime;
 import java.util.Objects;
 import org.mapstruct.ap.internal.util.Strings;
+import org.springframework.stereotype.Component;
 
-public class ExerciseCategoryMapper {
+@Component
+public class ExerciseCategoryEntityMapper {
 
   public ExerciseCategory toDomain(ExerciseCategoryDTO dto, User user) {
     return ExerciseCategory.builder()

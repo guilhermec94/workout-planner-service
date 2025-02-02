@@ -1,20 +1,20 @@
 package com.workout_planner_service.application.ports.inbound;
 
-import com.workout_planner_service.domain.model.Exercise;
 import com.workout_planner_service.infrastructure.adapters.inbound.rest.dtos.ExerciseDTO;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import lombok.NonNull;
 
 public interface ExerciseUseCase {
 
-  List<ExerciseDTO> getAllExercises(UUID userId);
+  List<ExerciseDTO> getAllExercises(@NonNull UUID userId);
 
-  Optional<ExerciseDTO> getExerciseById(UUID id);
+  Optional<ExerciseDTO> getExerciseById(@NonNull UUID id);
 
-  ExerciseDTO createExercise(Exercise exercise);
+  ExerciseDTO createExercise(@NonNull ExerciseDTO dto, @NonNull UUID userId);
 
-  void patchExercise(Exercise exercise);
+  void patchExercise(@NonNull ExerciseDTO dto, @NonNull UUID id, @NonNull UUID userId);
 
-  void deleteExercise(UUID id);
+  void deleteExercise(@NonNull UUID id);
 }

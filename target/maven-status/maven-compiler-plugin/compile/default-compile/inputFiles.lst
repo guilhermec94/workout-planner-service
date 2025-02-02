@@ -2,7 +2,9 @@ C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\worko
 C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\application\exceptions\UserNotFoundException.java
 C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\application\exceptions\WorkoutNotFoundException.java
 C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\application\ExerciseCategoryUseCaseImpl.java
-C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\application\ports\ExerciseCategoryMapper.java
+C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\application\ExerciseUseCaseImpl.java
+C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\application\ports\ExerciseCategoryEntityMapper.java
+C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\application\ports\ExerciseEntityMapper.java
 C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\application\ports\inbound\ExerciseCategoryUseCase.java
 C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\application\ports\inbound\ExerciseUseCase.java
 C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\application\ports\inbound\WorkoutUseCase.java
@@ -18,6 +20,7 @@ C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\worko
 C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\domain\model\User.java
 C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\domain\model\Workout.java
 C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\infrastructure\adapters\inbound\rest\ExerciseCategoryRestAdapter.java
+C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\infrastructure\adapters\inbound\rest\ExerciseRestAdapter.java
 C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\infrastructure\adapters\inbound\rest\WorkoutRestAdapter.java
 C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\infrastructure\adapters\outbound\persistence\entities\ExerciseCategoryJpaEntity.java
 C:\Users\JimBob\Documents\GitHub\workout-planner-service\src\main\java\com\workout_planner_service\infrastructure\adapters\outbound\persistence\entities\ExerciseJpaEntity.java

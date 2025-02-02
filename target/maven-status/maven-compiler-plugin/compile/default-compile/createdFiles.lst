@@ -13,12 +13,12 @@ com\workout_planner_service\infrastructure\adapters\outbound\persistence\entitie
 com\workout_planner_service\infrastructure\adapters\inbound\rest\dtos\WorkoutDTO.class
 com\workout_planner_service\application\WorkoutUseCaseImpl.class
 com\workout_planner_service\domain\model\Exercise$ExerciseBuilder.class
+com\workout_planner_service\infrastructure\adapters\inbound\rest\ExerciseRestAdapter.class
 com\workout_planner_service\infrastructure\adapters\outbound\persistence\repositories\ExerciseJpaRepository.class
 com\workout_planner_service\application\exceptions\WorkoutNotFoundException.class
 com\workout_planner_service\application\ports\inbound\ExerciseUseCase.class
 com\workout_planner_service\application\ports\outbound\persistence\ExerciseCategoryPersistencePort.class
 com\workout_planner_service\infrastructure\adapters\inbound\rest\dtos\ExerciseDetailDTO$ExerciseDetailDTOBuilder.class
-com\workout_planner_service\application\ports\ExerciseCategoryMapper.class
 com\workout_planner_service\infrastructure\adapters\inbound\rest\dtos\ExerciseTypeDTO.class
 com\workout_planner_service\infrastructure\adapters\outbound\persistence\entities\ExerciseCategoryJpaEntity$ExerciseCategoryJpaEntityBuilder.class
 com\workout_planner_service\infrastructure\adapters\inbound\rest\dtos\ErrorDTO.class
@@ -44,6 +44,7 @@ com\workout_planner_service\infrastructure\adapters\outbound\persistence\reposit
 com\workout_planner_service\infrastructure\adapters\inbound\rest\dtos\ExerciseInstructionDTO.class
 com\workout_planner_service\infrastructure\adapters\outbound\persistence\entities\ExerciseJpaEntity.class
 com\workout_planner_service\infrastructure\adapters\outbound\persistence\entities\UserJpaEntity.class
+com\workout_planner_service\application\ports\ExerciseEntityMapper.class
 com\workout_planner_service\application\ports\WorkoutEntityMapper.class
 com\workout_planner_service\infrastructure\adapters\outbound\persistence\mappers\ExerciseJpaPersistenceMapper.class
 com\workout_planner_service\application\ports\outbound\persistence\ExercisePersistencePort.class
@@ -54,8 +55,10 @@ com\workout_planner_service\infrastructure\adapters\outbound\persistence\entitie
 com\workout_planner_service\infrastructure\adapters\inbound\rest\dtos\ExerciseCategoryDTO$ExerciseCategoryDTOBuilder.class
 com\workout_planner_service\infrastructure\adapters\outbound\persistence\mappers\ExerciseCategoryJpaPersistenceMapper.class
 com\workout_planner_service\infrastructure\adapters\inbound\rest\WorkoutRestAdapter.class
+com\workout_planner_service\application\ports\ExerciseCategoryEntityMapper.class
 com\workout_planner_service\infrastructure\adapters\inbound\rest\dtos\ExerciseInstructionsDTO$ExerciseInstructionsDTOBuilder.class
 com\workout_planner_service\infrastructure\adapters\inbound\rest\dtos\PaginationDTO.class
+com\workout_planner_service\application\ExerciseUseCaseImpl.class
 com\workout_planner_service\application\ports\outbound\persistence\UserPersistencePort.class
 com\workout_planner_service\infrastructure\adapters\outbound\persistence\entities\ExerciseCategoryJpaEntity.class
 com\workout_planner_service\domain\model\ExerciseCategory$ExerciseCategoryBuilder.class

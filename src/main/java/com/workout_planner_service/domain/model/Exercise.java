@@ -1,6 +1,6 @@
 package com.workout_planner_service.domain.model;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 import lombok.*;
 
@@ -15,5 +15,5 @@ public class Exercise {
   private ExerciseCategory category;
   private ExerciseType type;
   private User owner;
-  private LocalDateTime createdAt;
+  private OffsetDateTime createdAt;
 }

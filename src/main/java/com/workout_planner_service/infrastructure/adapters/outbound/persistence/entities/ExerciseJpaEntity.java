@@ -1,7 +1,7 @@
 package com.workout_planner_service.infrastructure.adapters.outbound.persistence.entities;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,5 +30,5 @@ public class ExerciseJpaEntity {
   @JoinColumn(name = "owner")
   private UserJpaEntity owner;
 
-  private LocalDateTime createdAt;
+  private OffsetDateTime createdAt;
 }

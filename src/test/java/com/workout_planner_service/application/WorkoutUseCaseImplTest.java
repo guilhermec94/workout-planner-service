@@ -212,13 +212,19 @@ class WorkoutUseCaseImplTest {
 
     var workoutDTO =
         WorkoutDTO.builder()
-            .id(UUID.randomUUID())
+            .name("W1")
+            .createdAt(OffsetDateTime.from(OffsetDateTime.now()))
+            .build();
+
+    var workoutSavedDTO =
+        WorkoutDTO.builder()
+            .id(workoutSaved.getId())
             .name("W1")
             .createdAt(OffsetDateTime.from(OffsetDateTime.now()))
             .build();
 
     when(entityMapper.toDomain(workoutDTO, user)).thenReturn(workout);
-    when(entityMapper.toDTO(workoutSaved)).thenReturn(workoutDTO);
+    when(entityMapper.toDTO(workoutSaved)).thenReturn(workoutSavedDTO);
     when(userPersistencePort.GetByID(any())).thenReturn(Optional.ofNullable(user));
     when(workoutPersistencePort.saveWorkout(workout)).thenReturn(workoutSaved);
 
@@ -226,7 +232,7 @@ class WorkoutUseCaseImplTest {
     var result = workoutUseCaseImpl.createWorkout(workoutDTO, user.getId());
 
     // Then
-    assertThat(result).isEqualTo(workoutDTO);
+    assertThat(result).isEqualTo(workoutSavedDTO);
   }
 
   @Test
@@ -281,7 +287,6 @@ class WorkoutUseCaseImplTest {
 
     var workoutDTO =
         WorkoutDTO.builder()
-            .id(UUID.randomUUID())
             .name("W1")
             .createdAt(OffsetDateTime.from(OffsetDateTime.now()))
             .build();
@@ -318,7 +323,6 @@ class WorkoutUseCaseImplTest {
 
     var workoutDTO =
         WorkoutDTO.builder()
-            .id(UUID.randomUUID())
             .name("W1")
             .createdAt(OffsetDateTime.from(OffsetDateTime.now()))
             .build();
@@ -356,7 +360,6 @@ class WorkoutUseCaseImplTest {
 
     var workoutDTO =
         WorkoutDTO.builder()
-            .id(UUID.randomUUID())
             .name("W1")
             .createdAt(OffsetDateTime.from(OffsetDateTime.now()))
             .build();

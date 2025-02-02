@@ -7,7 +7,7 @@ import static org.mockito.Mockito.*;
 
 import com.workout_planner_service.application.exceptions.ExerciseCategoryNotFoundException;
 import com.workout_planner_service.application.exceptions.UserNotFoundException;
-import com.workout_planner_service.application.ports.ExerciseCategoryMapper;
+import com.workout_planner_service.application.ports.ExerciseCategoryEntityMapper;
 import com.workout_planner_service.application.ports.outbound.persistence.ExerciseCategoryPersistencePort;
 import com.workout_planner_service.application.ports.outbound.persistence.UserPersistencePort;
 import com.workout_planner_service.domain.model.ExerciseCategory;
@@ -27,7 +27,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class ExerciseCategoryUseCaseImplTest {
 
-  @Mock private ExerciseCategoryMapper entityMapper;
+  @Mock private ExerciseCategoryEntityMapper entityMapper;
   @Mock private UserPersistencePort userPersistencePort;
   @Mock private ExerciseCategoryPersistencePort exerciseCategoryPersistencePort;
   @InjectMocks private ExerciseCategoryUseCaseImpl exerciseCategoryUseCaseImpl;
@@ -77,7 +77,7 @@ class ExerciseCategoryUseCaseImplTest {
                 .build(),
             ExerciseCategoryDTO.builder()
                 .id(UUID.randomUUID())
-                .name("W2")
+                .name("C2")
                 .createdAt(OffsetDateTime.from(OffsetDateTime.now()))
                 .build());
 
@@ -117,7 +117,7 @@ class ExerciseCategoryUseCaseImplTest {
     var category =
         ExerciseCategory.builder()
             .id(UUID.randomUUID())
-            .name("W1")
+            .name("C1")
             .owner(user)
             .createdAt(OffsetDateTime.now())
             .build();
@@ -125,7 +125,7 @@ class ExerciseCategoryUseCaseImplTest {
     var categoryDTO =
         ExerciseCategoryDTO.builder()
             .id(UUID.randomUUID())
-            .name("W1")
+            .name("C1")
             .createdAt(OffsetDateTime.from(OffsetDateTime.now()))
             .build();
 
@@ -175,8 +175,7 @@ class ExerciseCategoryUseCaseImplTest {
 
     var categoryDTO =
         ExerciseCategoryDTO.builder()
-            .id(UUID.randomUUID())
-            .name("W1")
+            .name("C1")
             .createdAt(OffsetDateTime.from(OffsetDateTime.now()))
             .build();
 
@@ -204,25 +203,30 @@ class ExerciseCategoryUseCaseImplTest {
     var category =
         ExerciseCategory.builder().name("W1").owner(user).createdAt(OffsetDateTime.now()).build();
 
-    var workoutSaved =
+    var categorySaved =
         ExerciseCategory.builder()
             .id(UUID.randomUUID())
-            .name("W1")
+            .name("C1")
             .owner(user)
             .createdAt(OffsetDateTime.now())
             .build();
 
     var categoryDTO =
         ExerciseCategoryDTO.builder()
-            .id(UUID.randomUUID())
-            .name("W1")
+            .name("C1")
+            .createdAt(OffsetDateTime.from(OffsetDateTime.now()))
+            .build();
+    var categorySavedDTO =
+        ExerciseCategoryDTO.builder()
+            .id(categorySaved.getId())
+            .name("C1")
             .createdAt(OffsetDateTime.from(OffsetDateTime.now()))
             .build();
 
     when(entityMapper.toDomain(categoryDTO, user)).thenReturn(category);
-    when(entityMapper.toDTO(workoutSaved)).thenReturn(categoryDTO);
+    when(entityMapper.toDTO(categorySaved)).thenReturn(categorySavedDTO);
     when(userPersistencePort.GetByID(any())).thenReturn(Optional.ofNullable(user));
-    when(exerciseCategoryPersistencePort.saveExerciseCategory(category)).thenReturn(workoutSaved);
+    when(exerciseCategoryPersistencePort.saveExerciseCategory(category)).thenReturn(categorySaved);
 
     // When
     var result = exerciseCategoryUseCaseImpl.createExerciseCategory(categoryDTO, user.getId());
@@ -275,18 +279,17 @@ class ExerciseCategoryUseCaseImplTest {
             .email("email@test.com")
             .build();
 
-    var workoutSaved =
+    var categorySaved =
         ExerciseCategory.builder()
             .id(UUID.randomUUID())
-            .name("W1Patch")
+            .name("C1Patch")
             .owner(user)
             .createdAt(OffsetDateTime.now())
             .build();
 
     var categoryDTO =
         ExerciseCategoryDTO.builder()
-            .id(UUID.randomUUID())
-            .name("W1")
+            .name("C1")
             .createdAt(OffsetDateTime.from(OffsetDateTime.now()))
             .build();
 
@@ -296,7 +299,7 @@ class ExerciseCategoryUseCaseImplTest {
     ThrowableAssert.ThrowingCallable throwingCallable =
         () ->
             exerciseCategoryUseCaseImpl.patchExerciseCategory(
-                categoryDTO, workoutSaved.getId(), user.getId());
+                categoryDTO, categorySaved.getId(), user.getId());
 
     // Then
     assertThatThrownBy(throwingCallable).isInstanceOf(UserNotFoundException.class);
@@ -314,30 +317,29 @@ class ExerciseCategoryUseCaseImplTest {
             .email("email@test.com")
             .build();
 
-    var workoutSaved =
+    var categorySaved =
         ExerciseCategory.builder()
             .id(UUID.randomUUID())
-            .name("W1Patch")
+            .name("C1Patch")
             .owner(user)
             .createdAt(OffsetDateTime.now())
             .build();
 
     var categoryDTO =
         ExerciseCategoryDTO.builder()
-            .id(UUID.randomUUID())
-            .name("W1")
+            .name("C1")
             .createdAt(OffsetDateTime.from(OffsetDateTime.now()))
             .build();
 
     when(userPersistencePort.GetByID(any())).thenReturn(Optional.ofNullable(user));
-    when(exerciseCategoryPersistencePort.getExerciseCategoryById(workoutSaved.getId()))
+    when(exerciseCategoryPersistencePort.getExerciseCategoryById(categorySaved.getId()))
         .thenReturn(Optional.empty());
 
     /// When
     ThrowableAssert.ThrowingCallable throwingCallable =
         () ->
             exerciseCategoryUseCaseImpl.patchExerciseCategory(
-                categoryDTO, workoutSaved.getId(), user.getId());
+                categoryDTO, categorySaved.getId(), user.getId());
 
     // Then
     assertThatThrownBy(throwingCallable).isInstanceOf(ExerciseCategoryNotFoundException.class);
@@ -355,30 +357,28 @@ class ExerciseCategoryUseCaseImplTest {
             .email("email@test.com")
             .build();
 
-    var workoutSaved =
+    var categorySaved =
         ExerciseCategory.builder()
             .id(UUID.randomUUID())
-            .name("W1Patch")
+            .name("C1Patch")
             .owner(user)
             .createdAt(OffsetDateTime.now())
             .build();
 
     var categoryDTO =
         ExerciseCategoryDTO.builder()
-            .id(UUID.randomUUID())
-            .name("W1")
+            .name("C1")
             .createdAt(OffsetDateTime.from(OffsetDateTime.now()))
             .build();
-
     when(userPersistencePort.GetByID(any())).thenReturn(Optional.ofNullable(user));
-    when(exerciseCategoryPersistencePort.getExerciseCategoryById(workoutSaved.getId()))
-        .thenReturn(Optional.of(workoutSaved));
-    when(exerciseCategoryPersistencePort.saveExerciseCategory(workoutSaved))
-        .thenReturn(workoutSaved);
+    when(exerciseCategoryPersistencePort.getExerciseCategoryById(categorySaved.getId()))
+        .thenReturn(Optional.of(categorySaved));
+    when(exerciseCategoryPersistencePort.saveExerciseCategory(categorySaved))
+        .thenReturn(categorySaved);
 
     // When
     exerciseCategoryUseCaseImpl.patchExerciseCategory(
-        categoryDTO, workoutSaved.getId(), user.getId());
+        categoryDTO, categorySaved.getId(), user.getId());
 
     // Then
     verify(userPersistencePort, times(1)).GetByID(any());
