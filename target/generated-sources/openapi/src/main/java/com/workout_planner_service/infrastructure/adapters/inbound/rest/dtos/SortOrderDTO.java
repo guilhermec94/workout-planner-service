@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * Gets or Sets SortOrderDTO
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-02-02T15:56:10.741990Z[Europe/Lisbon]", comments = "Generator version: 7.11.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-02-26T08:08:05.944939600Z[Europe/Lisbon]", comments = "Generator version: 7.11.0")
 public enum SortOrderDTO {
   
   ASC("ASC"),

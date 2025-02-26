@@ -5,8 +5,4 @@ import com.workout_planner_service.infrastructure.adapters.outbound.persistence.
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface UserJpaPersistenceMapper {
-  UserJpaEntity toUserJpaEntity(User user);
-
-  User toUser(UserJpaEntity user);
-}
+public interface UserJpaPersistenceMapper extends BaseJpaPersistenceMapper<User, UserJpaEntity> {}

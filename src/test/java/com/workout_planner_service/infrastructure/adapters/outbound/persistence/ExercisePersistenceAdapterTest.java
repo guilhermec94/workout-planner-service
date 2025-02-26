@@ -24,8 +24,7 @@ public class ExercisePersistenceAdapterTest extends DatabaseTestContainer {
 
   @Test
   void shouldThrowExceptionWhenUserIdIsNull() {
-    ThrowableAssert.ThrowingCallable throwingCallable =
-        () -> persistenceAdapter.getAllExercises(null);
+    ThrowableAssert.ThrowingCallable throwingCallable = () -> persistenceAdapter.getAll(null);
     assertThatThrownBy(throwingCallable).isInstanceOf(NullPointerException.class);
   }
 
@@ -66,7 +65,7 @@ public class ExercisePersistenceAdapterTest extends DatabaseTestContainer {
             .createdAt(OffsetDateTime.parse("2023-10-25T15:30:00"))
             .build();
     // When
-    var data = persistenceAdapter.getAllExercises(userId);
+    var data = persistenceAdapter.getAll(userId);
 
     // Then
     assertThat(data).isNotEmpty();
@@ -75,8 +74,7 @@ public class ExercisePersistenceAdapterTest extends DatabaseTestContainer {
 
   @Test
   void shouldThrowExceptionWhenExerciseIdIsNullForGet() {
-    ThrowableAssert.ThrowingCallable throwingCallable =
-        () -> persistenceAdapter.getExerciseById(null);
+    ThrowableAssert.ThrowingCallable throwingCallable = () -> persistenceAdapter.getById(null);
     assertThatThrownBy(throwingCallable).isInstanceOf(NullPointerException.class);
   }
 
@@ -117,7 +115,7 @@ public class ExercisePersistenceAdapterTest extends DatabaseTestContainer {
             .createdAt(OffsetDateTime.parse("2023-10-25T15:30:00"))
             .build();
     // When
-    var data = persistenceAdapter.getExerciseById(exerciseId);
+    var data = persistenceAdapter.getById(exerciseId);
 
     // Then
     assertThat(data).isNotEmpty();
@@ -126,7 +124,7 @@ public class ExercisePersistenceAdapterTest extends DatabaseTestContainer {
 
   @Test
   void shouldThrowExceptionIfExerciseIsNull() {
-    ThrowableAssert.ThrowingCallable throwingCallable = () -> persistenceAdapter.saveExercise(null);
+    ThrowableAssert.ThrowingCallable throwingCallable = () -> persistenceAdapter.save(null);
     assertThatThrownBy(throwingCallable).isInstanceOf(NullPointerException.class);
   }
 
@@ -166,10 +164,10 @@ public class ExercisePersistenceAdapterTest extends DatabaseTestContainer {
             .createdAt(OffsetDateTime.parse("2023-10-25T15:30:00"))
             .build();
     // When
-    var data = persistenceAdapter.saveExercise(exercise);
+    var data = persistenceAdapter.save(exercise);
 
     // Then
-    var exerciseFound = persistenceAdapter.getExerciseById(exerciseId);
+    var exerciseFound = persistenceAdapter.getById(exerciseId);
     assertThat(exerciseFound).isNotEmpty();
     assertThat(data).isNotNull();
     AssertionsForClassTypes.assertThat(data).usingRecursiveComparison().isEqualTo(exercise);
@@ -180,8 +178,7 @@ public class ExercisePersistenceAdapterTest extends DatabaseTestContainer {
 
   @Test
   void shouldThrowExceptionWhenExerciseIdIsNullForDelete() {
-    ThrowableAssert.ThrowingCallable throwingCallable =
-        () -> persistenceAdapter.deleteExercise(null);
+    ThrowableAssert.ThrowingCallable throwingCallable = () -> persistenceAdapter.delete(null);
     assertThatThrownBy(throwingCallable).isInstanceOf(NullPointerException.class);
   }
 
@@ -220,13 +217,13 @@ public class ExercisePersistenceAdapterTest extends DatabaseTestContainer {
             .owner(user)
             .createdAt(OffsetDateTime.parse("2023-10-25T15:30:00"))
             .build();
-    persistenceAdapter.saveExercise(exercise);
+    persistenceAdapter.save(exercise);
 
     // When
-    persistenceAdapter.deleteExercise(exerciseId);
+    persistenceAdapter.delete(exerciseId);
 
     // Then
-    var exerciseFound = persistenceAdapter.getExerciseById(exerciseId);
+    var exerciseFound = persistenceAdapter.getById(exerciseId);
     assertThat(exerciseFound).isEmpty();
   }
 }

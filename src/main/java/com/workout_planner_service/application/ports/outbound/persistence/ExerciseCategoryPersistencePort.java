@@ -2,17 +2,10 @@ package com.workout_planner_service.application.ports.outbound.persistence;
 
 import com.workout_planner_service.domain.model.ExerciseCategory;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import lombok.NonNull;
 
-public interface ExerciseCategoryPersistencePort {
+public interface ExerciseCategoryPersistencePort extends BasePersistencePort<ExerciseCategory> {
 
-  List<ExerciseCategory> getAllExerciseCategories(@NonNull UUID userId);
-
-  Optional<ExerciseCategory> getExerciseCategoryById(@NonNull UUID id);
-
-  ExerciseCategory saveExerciseCategory(@NonNull ExerciseCategory category);
-
-  void deleteExerciseCategory(@NonNull UUID id);
+  List<ExerciseCategory> getAll(@NonNull UUID userId);
 }

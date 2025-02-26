@@ -83,7 +83,7 @@ class WorkoutUseCaseImplTest {
 
     when(entityMapper.toDTO(workouts.get(0))).thenReturn(workoutDTOs.get(0));
     when(entityMapper.toDTO(workouts.get(1))).thenReturn(workoutDTOs.get(1));
-    when(workoutPersistencePort.getAllWorkouts(userId)).thenReturn(workouts);
+    when(workoutPersistencePort.getAll(userId)).thenReturn(workouts);
 
     // When
     var result = workoutUseCaseImpl.getAllWorkouts(userId);
@@ -96,8 +96,7 @@ class WorkoutUseCaseImplTest {
   @Test
   void shouldThrowExceptionWhenWorkoutIdIsNullGettingWorkout() {
     // When
-    ThrowableAssert.ThrowingCallable throwingCallable =
-        () -> workoutUseCaseImpl.getWorkoutById(null);
+    ThrowableAssert.ThrowingCallable throwingCallable = () -> workoutUseCaseImpl.getById(null);
 
     // Then
     assertThatThrownBy(throwingCallable).isInstanceOf(NullPointerException.class);
@@ -130,10 +129,10 @@ class WorkoutUseCaseImplTest {
             .build();
 
     when(entityMapper.toDTO(workout)).thenReturn(workoutDTO);
-    when(workoutPersistencePort.getWorkoutById(workout.getId())).thenReturn(Optional.of(workout));
+    when(workoutPersistencePort.getById(workout.getId())).thenReturn(Optional.of(workout));
 
     // When
-    var result = workoutUseCaseImpl.getWorkoutById(workout.getId());
+    var result = workoutUseCaseImpl.getById(workout.getId());
 
     // Then
     assertThat(result).isNotEmpty();
@@ -179,7 +178,7 @@ class WorkoutUseCaseImplTest {
             .createdAt(OffsetDateTime.from(OffsetDateTime.now()))
             .build();
 
-    when(userPersistencePort.GetByID(any())).thenReturn(Optional.empty());
+    when(userPersistencePort.getById(any())).thenReturn(Optional.empty());
 
     // When
     ThrowableAssert.ThrowingCallable throwingCallable =
@@ -223,10 +222,10 @@ class WorkoutUseCaseImplTest {
             .createdAt(OffsetDateTime.from(OffsetDateTime.now()))
             .build();
 
-    when(entityMapper.toDomain(workoutDTO, user)).thenReturn(workout);
+    when(entityMapper.toDomain(workoutDTO)).thenReturn(workout);
     when(entityMapper.toDTO(workoutSaved)).thenReturn(workoutSavedDTO);
-    when(userPersistencePort.GetByID(any())).thenReturn(Optional.ofNullable(user));
-    when(workoutPersistencePort.saveWorkout(workout)).thenReturn(workoutSaved);
+    when(userPersistencePort.getById(any())).thenReturn(Optional.ofNullable(user));
+    when(workoutPersistencePort.save(workout)).thenReturn(workoutSaved);
 
     // When
     var result = workoutUseCaseImpl.createWorkout(workoutDTO, user.getId());
@@ -291,7 +290,7 @@ class WorkoutUseCaseImplTest {
             .createdAt(OffsetDateTime.from(OffsetDateTime.now()))
             .build();
 
-    when(userPersistencePort.GetByID(any())).thenReturn(Optional.empty());
+    when(userPersistencePort.getById(any())).thenReturn(Optional.empty());
 
     /// When
     ThrowableAssert.ThrowingCallable throwingCallable =
@@ -327,8 +326,8 @@ class WorkoutUseCaseImplTest {
             .createdAt(OffsetDateTime.from(OffsetDateTime.now()))
             .build();
 
-    when(userPersistencePort.GetByID(any())).thenReturn(Optional.ofNullable(user));
-    when(workoutPersistencePort.getWorkoutById(workoutSaved.getId())).thenReturn(Optional.empty());
+    when(userPersistencePort.getById(any())).thenReturn(Optional.ofNullable(user));
+    when(workoutPersistencePort.getById(workoutSaved.getId())).thenReturn(Optional.empty());
 
     /// When
     ThrowableAssert.ThrowingCallable throwingCallable =
@@ -364,34 +363,33 @@ class WorkoutUseCaseImplTest {
             .createdAt(OffsetDateTime.from(OffsetDateTime.now()))
             .build();
 
-    when(userPersistencePort.GetByID(any())).thenReturn(Optional.ofNullable(user));
-    when(workoutPersistencePort.getWorkoutById(workoutSaved.getId()))
+    when(userPersistencePort.getById(any())).thenReturn(Optional.ofNullable(user));
+    when(workoutPersistencePort.getById(workoutSaved.getId()))
         .thenReturn(Optional.of(workoutSaved));
-    when(workoutPersistencePort.saveWorkout(workoutSaved)).thenReturn(workoutSaved);
+    when(workoutPersistencePort.save(workoutSaved)).thenReturn(workoutSaved);
 
     // When
     workoutUseCaseImpl.patchWorkout(workoutDTO, workoutSaved.getId(), user.getId());
 
     // Then
-    verify(userPersistencePort, times(1)).GetByID(any());
-    verify(workoutPersistencePort, times(1)).getWorkoutById(any());
-    verify(workoutPersistencePort, times(1)).saveWorkout(any());
+    verify(userPersistencePort, times(1)).getById(any());
+    verify(workoutPersistencePort, times(1)).getById(any());
+    verify(workoutPersistencePort, times(1)).save(any());
   }
 
   @Test
   void shouldDeleteWorkoutSuccessfully() {
     // When
-    workoutUseCaseImpl.deleteWorkout(UUID.randomUUID());
+    workoutUseCaseImpl.delete(UUID.randomUUID());
 
     // Then
-    verify(workoutPersistencePort, times(1)).deleteWorkout(any());
+    verify(workoutPersistencePort, times(1)).delete(any());
   }
 
   @Test
   void shouldThrowExceptionWhenWorkoutIdIsNullDeletingWorkout() {
     // When
-    ThrowableAssert.ThrowingCallable throwingCallable =
-        () -> workoutUseCaseImpl.deleteWorkout(null);
+    ThrowableAssert.ThrowingCallable throwingCallable = () -> workoutUseCaseImpl.delete(null);
 
     // Then
     assertThatThrownBy(throwingCallable).isInstanceOf(NullPointerException.class);

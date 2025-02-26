@@ -9,42 +9,42 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-02-02T15:56:14+0000",
+    date = "2025-02-26T08:08:09+0000",
     comments = "version: 1.6.2, compiler: javac, environment: Java 21.0.5 (Eclipse Adoptium)"
 )
 @Component
 public class ExerciseCategoryJpaPersistenceMapperImpl implements ExerciseCategoryJpaPersistenceMapper {
 
     @Override
-    public ExerciseCategoryJpaEntity toExerciseCategoryJpaEntity(ExerciseCategory exerciseCategory) {
-        if ( exerciseCategory == null ) {
+    public ExerciseCategoryJpaEntity toJpaEntity(ExerciseCategory model) {
+        if ( model == null ) {
             return null;
         }
 
         ExerciseCategoryJpaEntity.ExerciseCategoryJpaEntityBuilder exerciseCategoryJpaEntity = ExerciseCategoryJpaEntity.builder();
 
-        exerciseCategoryJpaEntity.id( exerciseCategory.getId() );
-        exerciseCategoryJpaEntity.name( exerciseCategory.getName() );
-        exerciseCategoryJpaEntity.owner( userToUserJpaEntity( exerciseCategory.getOwner() ) );
-        exerciseCategoryJpaEntity.createdAt( exerciseCategory.getCreatedAt() );
+        exerciseCategoryJpaEntity.id( model.getId() );
+        exerciseCategoryJpaEntity.name( model.getName() );
+        exerciseCategoryJpaEntity.owner( userToUserJpaEntity( model.getOwner() ) );
+        exerciseCategoryJpaEntity.createdAt( model.getCreatedAt() );
 
         return exerciseCategoryJpaEntity.build();
     }
 
     @Override
-    public ExerciseCategory toExerciseCategory(ExerciseCategoryJpaEntity exerciseCategory) {
-        if ( exerciseCategory == null ) {
+    public ExerciseCategory toModel(ExerciseCategoryJpaEntity entity) {
+        if ( entity == null ) {
             return null;
         }
 
-        ExerciseCategory.ExerciseCategoryBuilder exerciseCategory1 = ExerciseCategory.builder();
+        ExerciseCategory.ExerciseCategoryBuilder exerciseCategory = ExerciseCategory.builder();
 
-        exerciseCategory1.id( exerciseCategory.getId() );
-        exerciseCategory1.name( exerciseCategory.getName() );
-        exerciseCategory1.owner( userJpaEntityToUser( exerciseCategory.getOwner() ) );
-        exerciseCategory1.createdAt( exerciseCategory.getCreatedAt() );
+        exerciseCategory.id( entity.getId() );
+        exerciseCategory.name( entity.getName() );
+        exerciseCategory.owner( userJpaEntityToUser( entity.getOwner() ) );
+        exerciseCategory.createdAt( entity.getCreatedAt() );
 
-        return exerciseCategory1.build();
+        return exerciseCategory.build();
     }
 
     protected UserJpaEntity userToUserJpaEntity(User user) {

@@ -23,7 +23,7 @@ public class ExerciseRestAdapter {
 
   @GetMapping(value = "/exercises/{id}")
   public Optional<ExerciseDTO> getById(@PathVariable UUID id) {
-    return exerciseUseCase.getExerciseById(id);
+    return exerciseUseCase.getById(id);
   }
 
   @PostMapping(value = "/exercises")
@@ -39,6 +39,6 @@ public class ExerciseRestAdapter {
 
   @DeleteMapping(value = "/exercises/{id}")
   public void delete(@PathVariable UUID id) {
-    exerciseUseCase.deleteExercise(id);
+    exerciseUseCase.delete(id);
   }
 }

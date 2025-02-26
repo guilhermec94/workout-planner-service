@@ -22,8 +22,7 @@ public class ExerciseCategoryPersistenceAdapterTest extends DatabaseTestContaine
 
   @Test
   void shouldThrowExceptionWhenUserIdIsNull() {
-    ThrowableAssert.ThrowingCallable throwingCallable =
-        () -> persistenceAdapter.getAllExerciseCategories(null);
+    ThrowableAssert.ThrowingCallable throwingCallable = () -> persistenceAdapter.getAll(null);
     assertThatThrownBy(throwingCallable).isInstanceOf(NullPointerException.class);
   }
 
@@ -48,7 +47,7 @@ public class ExerciseCategoryPersistenceAdapterTest extends DatabaseTestContaine
             .createdAt(OffsetDateTime.parse("2023-10-25T15:30:00"))
             .build();
     // When
-    var data = persistenceAdapter.getAllExerciseCategories(userId);
+    var data = persistenceAdapter.getAll(userId);
 
     // Then
     assertThat(data).isNotEmpty();
@@ -57,8 +56,7 @@ public class ExerciseCategoryPersistenceAdapterTest extends DatabaseTestContaine
 
   @Test
   void shouldThrowExceptionWhenExerciseCategoryIdIsNullForGet() {
-    ThrowableAssert.ThrowingCallable throwingCallable =
-        () -> persistenceAdapter.getExerciseCategoryById(null);
+    ThrowableAssert.ThrowingCallable throwingCallable = () -> persistenceAdapter.getById(null);
     assertThatThrownBy(throwingCallable).isInstanceOf(NullPointerException.class);
   }
 
@@ -83,7 +81,7 @@ public class ExerciseCategoryPersistenceAdapterTest extends DatabaseTestContaine
             .createdAt(OffsetDateTime.parse("2023-10-25T15:30:00"))
             .build();
     // When
-    var data = persistenceAdapter.getExerciseCategoryById(categoryId);
+    var data = persistenceAdapter.getById(categoryId);
 
     // Then
     assertThat(data).isNotEmpty();
@@ -92,8 +90,7 @@ public class ExerciseCategoryPersistenceAdapterTest extends DatabaseTestContaine
 
   @Test
   void shouldThrowExceptionIfExerciseCategoryIsNull() {
-    ThrowableAssert.ThrowingCallable throwingCallable =
-        () -> persistenceAdapter.saveExerciseCategory(null);
+    ThrowableAssert.ThrowingCallable throwingCallable = () -> persistenceAdapter.save(null);
     assertThatThrownBy(throwingCallable).isInstanceOf(NullPointerException.class);
   }
 
@@ -117,10 +114,10 @@ public class ExerciseCategoryPersistenceAdapterTest extends DatabaseTestContaine
             .createdAt(OffsetDateTime.parse("2023-10-25T15:30:00"))
             .build();
     // When
-    var data = persistenceAdapter.saveExerciseCategory(category);
+    var data = persistenceAdapter.save(category);
 
     // Then
-    var categoryFound = persistenceAdapter.getExerciseCategoryById(categoryId);
+    var categoryFound = persistenceAdapter.getById(categoryId);
     assertThat(categoryFound).isNotEmpty();
     assertThat(data).isNotNull();
     AssertionsForClassTypes.assertThat(data).usingRecursiveComparison().isEqualTo(category);
@@ -131,8 +128,7 @@ public class ExerciseCategoryPersistenceAdapterTest extends DatabaseTestContaine
 
   @Test
   void shouldThrowExceptionWhenExerciseCategoryIdIsNullForDelete() {
-    ThrowableAssert.ThrowingCallable throwingCallable =
-        () -> persistenceAdapter.deleteExerciseCategory(null);
+    ThrowableAssert.ThrowingCallable throwingCallable = () -> persistenceAdapter.delete(null);
     assertThatThrownBy(throwingCallable).isInstanceOf(NullPointerException.class);
   }
 
@@ -155,13 +151,13 @@ public class ExerciseCategoryPersistenceAdapterTest extends DatabaseTestContaine
             .owner(user)
             .createdAt(OffsetDateTime.parse("2023-10-25T15:30:00"))
             .build();
-    persistenceAdapter.saveExerciseCategory(category);
+    persistenceAdapter.save(category);
 
     // When
-    persistenceAdapter.deleteExerciseCategory(categoryId);
+    persistenceAdapter.delete(categoryId);
 
     // Then
-    var categoryFound = persistenceAdapter.getExerciseCategoryById(categoryId);
+    var categoryFound = persistenceAdapter.getById(categoryId);
     assertThat(categoryFound).isEmpty();
   }
 }

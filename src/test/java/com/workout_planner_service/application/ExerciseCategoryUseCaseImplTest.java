@@ -83,7 +83,7 @@ class ExerciseCategoryUseCaseImplTest {
 
     when(entityMapper.toDTO(categories.get(0))).thenReturn(categoryDTOs.get(0));
     when(entityMapper.toDTO(categories.get(1))).thenReturn(categoryDTOs.get(1));
-    when(exerciseCategoryPersistencePort.getAllExerciseCategories(userId)).thenReturn(categories);
+    when(exerciseCategoryPersistencePort.getAll(userId)).thenReturn(categories);
 
     // When
     var result = exerciseCategoryUseCaseImpl.getAllExerciseCategories(userId);
@@ -97,7 +97,7 @@ class ExerciseCategoryUseCaseImplTest {
   void shouldThrowExceptionWhenExerciseCategoryIdIsNullGettingExerciseCategory() {
     // When
     ThrowableAssert.ThrowingCallable throwingCallable =
-        () -> exerciseCategoryUseCaseImpl.getExerciseCategoryById(null);
+        () -> exerciseCategoryUseCaseImpl.getById(null);
 
     // Then
     assertThatThrownBy(throwingCallable).isInstanceOf(NullPointerException.class);
@@ -130,11 +130,11 @@ class ExerciseCategoryUseCaseImplTest {
             .build();
 
     when(entityMapper.toDTO(category)).thenReturn(categoryDTO);
-    when(exerciseCategoryPersistencePort.getExerciseCategoryById(category.getId()))
+    when(exerciseCategoryPersistencePort.getById(category.getId()))
         .thenReturn(Optional.of(category));
 
     // When
-    var result = exerciseCategoryUseCaseImpl.getExerciseCategoryById(category.getId());
+    var result = exerciseCategoryUseCaseImpl.getById(category.getId());
 
     // Then
     assertThat(result).isNotEmpty();
@@ -179,7 +179,7 @@ class ExerciseCategoryUseCaseImplTest {
             .createdAt(OffsetDateTime.from(OffsetDateTime.now()))
             .build();
 
-    when(userPersistencePort.GetByID(any())).thenReturn(Optional.empty());
+    when(userPersistencePort.getById(any())).thenReturn(Optional.empty());
 
     // When
     ThrowableAssert.ThrowingCallable throwingCallable =
@@ -223,10 +223,10 @@ class ExerciseCategoryUseCaseImplTest {
             .createdAt(OffsetDateTime.from(OffsetDateTime.now()))
             .build();
 
-    when(entityMapper.toDomain(categoryDTO, user)).thenReturn(category);
+    when(entityMapper.toDomain(categoryDTO)).thenReturn(category);
     when(entityMapper.toDTO(categorySaved)).thenReturn(categorySavedDTO);
-    when(userPersistencePort.GetByID(any())).thenReturn(Optional.ofNullable(user));
-    when(exerciseCategoryPersistencePort.saveExerciseCategory(category)).thenReturn(categorySaved);
+    when(userPersistencePort.getById(any())).thenReturn(Optional.ofNullable(user));
+    when(exerciseCategoryPersistencePort.save(category)).thenReturn(categorySaved);
 
     // When
     var result = exerciseCategoryUseCaseImpl.createExerciseCategory(categoryDTO, user.getId());
@@ -293,7 +293,7 @@ class ExerciseCategoryUseCaseImplTest {
             .createdAt(OffsetDateTime.from(OffsetDateTime.now()))
             .build();
 
-    when(userPersistencePort.GetByID(any())).thenReturn(Optional.empty());
+    when(userPersistencePort.getById(any())).thenReturn(Optional.empty());
 
     /// When
     ThrowableAssert.ThrowingCallable throwingCallable =
@@ -331,8 +331,8 @@ class ExerciseCategoryUseCaseImplTest {
             .createdAt(OffsetDateTime.from(OffsetDateTime.now()))
             .build();
 
-    when(userPersistencePort.GetByID(any())).thenReturn(Optional.ofNullable(user));
-    when(exerciseCategoryPersistencePort.getExerciseCategoryById(categorySaved.getId()))
+    when(userPersistencePort.getById(any())).thenReturn(Optional.ofNullable(user));
+    when(exerciseCategoryPersistencePort.getById(categorySaved.getId()))
         .thenReturn(Optional.empty());
 
     /// When
@@ -370,36 +370,35 @@ class ExerciseCategoryUseCaseImplTest {
             .name("C1")
             .createdAt(OffsetDateTime.from(OffsetDateTime.now()))
             .build();
-    when(userPersistencePort.GetByID(any())).thenReturn(Optional.ofNullable(user));
-    when(exerciseCategoryPersistencePort.getExerciseCategoryById(categorySaved.getId()))
+    when(userPersistencePort.getById(any())).thenReturn(Optional.ofNullable(user));
+    when(exerciseCategoryPersistencePort.getById(categorySaved.getId()))
         .thenReturn(Optional.of(categorySaved));
-    when(exerciseCategoryPersistencePort.saveExerciseCategory(categorySaved))
-        .thenReturn(categorySaved);
+    when(exerciseCategoryPersistencePort.save(categorySaved)).thenReturn(categorySaved);
 
     // When
     exerciseCategoryUseCaseImpl.patchExerciseCategory(
         categoryDTO, categorySaved.getId(), user.getId());
 
     // Then
-    verify(userPersistencePort, times(1)).GetByID(any());
-    verify(exerciseCategoryPersistencePort, times(1)).getExerciseCategoryById(any());
-    verify(exerciseCategoryPersistencePort, times(1)).saveExerciseCategory(any());
+    verify(userPersistencePort, times(1)).getById(any());
+    verify(exerciseCategoryPersistencePort, times(1)).getById(any());
+    verify(exerciseCategoryPersistencePort, times(1)).save(any());
   }
 
   @Test
   void shouldDeleteExerciseCategorySuccessfully() {
     // When
-    exerciseCategoryUseCaseImpl.deleteExerciseCategory(UUID.randomUUID());
+    exerciseCategoryUseCaseImpl.delete(UUID.randomUUID());
 
     // Then
-    verify(exerciseCategoryPersistencePort, times(1)).deleteExerciseCategory(any());
+    verify(exerciseCategoryPersistencePort, times(1)).delete(any());
   }
 
   @Test
   void shouldThrowExceptionWhenExerciseCategoryIdIsNullDeletingExerciseCategory() {
     // When
     ThrowableAssert.ThrowingCallable throwingCallable =
-        () -> exerciseCategoryUseCaseImpl.deleteExerciseCategory(null);
+        () -> exerciseCategoryUseCaseImpl.delete(null);
 
     // Then
     assertThatThrownBy(throwingCallable).isInstanceOf(NullPointerException.class);

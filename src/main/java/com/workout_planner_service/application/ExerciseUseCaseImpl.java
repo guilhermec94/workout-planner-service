@@ -7,79 +7,70 @@ import com.workout_planner_service.application.ports.inbound.ExerciseUseCase;
 import com.workout_planner_service.application.ports.outbound.persistence.ExerciseCategoryPersistencePort;
 import com.workout_planner_service.application.ports.outbound.persistence.ExercisePersistencePort;
 import com.workout_planner_service.application.ports.outbound.persistence.UserPersistencePort;
+import com.workout_planner_service.domain.model.Exercise;
 import com.workout_planner_service.infrastructure.adapters.inbound.rest.dtos.ExerciseDTO;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-@RequiredArgsConstructor
 @Service
-public class ExerciseUseCaseImpl implements ExerciseUseCase {
+public class ExerciseUseCaseImpl extends BaseUseCaseImpl<ExerciseDTO, Exercise>
+    implements ExerciseUseCase {
   private final UserPersistencePort userPersistencePort;
   private final ExerciseCategoryPersistencePort exerciseCategoryPersistencePort;
-  private final ExercisePersistencePort exercisePersistencePort;
   private final ExerciseEntityMapper mapper;
+  private final ExercisePersistencePort persistencePort;
 
-  @Override
-  public List<ExerciseDTO> getAllExercises(@NonNull UUID userId) {
-    return this.exercisePersistencePort.getAllExercises(userId).stream()
-        .map(mapper::toDTO)
-        .toList();
+  public ExerciseUseCaseImpl(
+      ExercisePersistencePort persistencePort,
+      ExerciseEntityMapper mapper,
+      UserPersistencePort userPersistencePort,
+      ExerciseCategoryPersistencePort exerciseCategoryPersistencePort) {
+    super(persistencePort, mapper);
+    this.userPersistencePort = userPersistencePort;
+    this.exerciseCategoryPersistencePort = exerciseCategoryPersistencePort;
+    this.mapper = mapper;
+    this.persistencePort = persistencePort;
   }
 
   @Override
-  public Optional<ExerciseDTO> getExerciseById(@NonNull UUID id) {
-    return this.exercisePersistencePort.getExerciseById(id).map(mapper::toDTO);
+  public List<ExerciseDTO> getAllExercises(@NonNull UUID userId) {
+    return this.persistencePort.getAll(userId).stream().map(mapper::toDTO).toList();
   }
 
   @Override
   public ExerciseDTO createExercise(@NonNull ExerciseDTO dto, @NonNull UUID userId) {
-    var user = userPersistencePort.GetByID(userId);
+    var user = userPersistencePort.getById(userId);
     if (user.isEmpty()) {
       throw new UserNotFoundException("User with ID " + userId + " not found");
     }
 
-    var category =
-        this.exerciseCategoryPersistencePort.getExerciseCategoryById(dto.getCategoryId());
+    var category = this.exerciseCategoryPersistencePort.getById(dto.getCategoryId());
     if (category.isEmpty()) {
       throw new ExerciseCategoryNotFoundException(
           "Category with ID " + dto.getCategoryId() + " not found");
     }
 
-    var entity = mapper.toDomain(dto, user.get());
-    return mapper.toDTO(this.exercisePersistencePort.saveExercise(entity));
+    return this.create(dto);
   }
 
   @Override
   public void patchExercise(@NonNull ExerciseDTO dto, @NonNull UUID id, @NonNull UUID userId) {
-    var user = userPersistencePort.GetByID(userId);
+    var user = userPersistencePort.getById(userId);
     if (user.isEmpty()) {
       throw new UserNotFoundException("User with ID " + userId + " not found");
     }
 
-    var category =
-        this.exerciseCategoryPersistencePort.getExerciseCategoryById(dto.getCategoryId());
+    var category = this.exerciseCategoryPersistencePort.getById(dto.getCategoryId());
     if (category.isEmpty()) {
       throw new ExerciseCategoryNotFoundException(
           "Category with ID " + dto.getCategoryId() + " not found");
     }
 
-    var entity = this.exercisePersistencePort.getExerciseById(id);
-    if (entity.isEmpty()) {
-      throw new ExerciseCategoryNotFoundException("Exercise with ID " + id + " not found");
-    }
-
     // TODO: implement correct patch logic
-    entity.get().setName(dto.getName());
-    entity.get().setCategory(category.get());
-    this.exercisePersistencePort.saveExercise(entity.get());
-  }
-
-  @Override
-  public void deleteExercise(@NonNull UUID id) {
-    this.exercisePersistencePort.deleteExercise(id);
+    /*entity.get().setName(dto.getName());
+    entity.get().setCategory(category.get());*/
+    this.patch(dto, id);
   }
 }

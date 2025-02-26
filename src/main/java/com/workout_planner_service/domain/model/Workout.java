@@ -4,14 +4,16 @@ import java.time.OffsetDateTime;
 import java.util.UUID;
 import lombok.*;
 
-@Builder
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class Workout {
-  private UUID id;
+public class Workout extends BaseEntity {
   private String name;
   private User owner;
-  private OffsetDateTime createdAt;
+
+  @Builder
+  Workout(UUID id, String name, User owner, OffsetDateTime createdAt) {
+    super(id, createdAt);
+    this.name = name;
+    this.owner = owner;
+  }
 }

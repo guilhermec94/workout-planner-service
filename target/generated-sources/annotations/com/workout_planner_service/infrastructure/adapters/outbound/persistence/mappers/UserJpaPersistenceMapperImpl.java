@@ -7,41 +7,41 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-02-02T15:56:13+0000",
+    date = "2025-02-26T08:08:09+0000",
     comments = "version: 1.6.2, compiler: javac, environment: Java 21.0.5 (Eclipse Adoptium)"
 )
 @Component
 public class UserJpaPersistenceMapperImpl implements UserJpaPersistenceMapper {
 
     @Override
-    public UserJpaEntity toUserJpaEntity(User user) {
-        if ( user == null ) {
+    public UserJpaEntity toJpaEntity(User model) {
+        if ( model == null ) {
             return null;
         }
 
         UserJpaEntity.UserJpaEntityBuilder userJpaEntity = UserJpaEntity.builder();
 
-        userJpaEntity.id( user.getId() );
-        userJpaEntity.firstName( user.getFirstName() );
-        userJpaEntity.lastName( user.getLastName() );
-        userJpaEntity.email( user.getEmail() );
+        userJpaEntity.id( model.getId() );
+        userJpaEntity.firstName( model.getFirstName() );
+        userJpaEntity.lastName( model.getLastName() );
+        userJpaEntity.email( model.getEmail() );
 
         return userJpaEntity.build();
     }
 
     @Override
-    public User toUser(UserJpaEntity user) {
-        if ( user == null ) {
+    public User toModel(UserJpaEntity entity) {
+        if ( entity == null ) {
             return null;
         }
 
-        User.UserBuilder user1 = User.builder();
+        User.UserBuilder user = User.builder();
 
-        user1.id( user.getId() );
-        user1.firstName( user.getFirstName() );
-        user1.lastName( user.getLastName() );
-        user1.email( user.getEmail() );
+        user.id( entity.getId() );
+        user.firstName( entity.getFirstName() );
+        user.lastName( entity.getLastName() );
+        user.email( entity.getEmail() );
 
-        return user1.build();
+        return user.build();
     }
 }

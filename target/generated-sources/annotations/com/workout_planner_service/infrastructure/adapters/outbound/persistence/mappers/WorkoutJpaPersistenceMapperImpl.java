@@ -9,42 +9,42 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-02-02T15:56:14+0000",
+    date = "2025-02-26T08:08:09+0000",
     comments = "version: 1.6.2, compiler: javac, environment: Java 21.0.5 (Eclipse Adoptium)"
 )
 @Component
 public class WorkoutJpaPersistenceMapperImpl implements WorkoutJpaPersistenceMapper {
 
     @Override
-    public WorkoutJpaEntity toWorkoutJpaEntity(Workout workout) {
-        if ( workout == null ) {
+    public WorkoutJpaEntity toJpaEntity(Workout model) {
+        if ( model == null ) {
             return null;
         }
 
         WorkoutJpaEntity.WorkoutJpaEntityBuilder workoutJpaEntity = WorkoutJpaEntity.builder();
 
-        workoutJpaEntity.id( workout.getId() );
-        workoutJpaEntity.name( workout.getName() );
-        workoutJpaEntity.owner( userToUserJpaEntity( workout.getOwner() ) );
-        workoutJpaEntity.createdAt( workout.getCreatedAt() );
+        workoutJpaEntity.id( model.getId() );
+        workoutJpaEntity.name( model.getName() );
+        workoutJpaEntity.owner( userToUserJpaEntity( model.getOwner() ) );
+        workoutJpaEntity.createdAt( model.getCreatedAt() );
 
         return workoutJpaEntity.build();
     }
 
     @Override
-    public Workout toWorkout(WorkoutJpaEntity workout) {
-        if ( workout == null ) {
+    public Workout toModel(WorkoutJpaEntity entity) {
+        if ( entity == null ) {
             return null;
         }
 
-        Workout.WorkoutBuilder workout1 = Workout.builder();
+        Workout.WorkoutBuilder workout = Workout.builder();
 
-        workout1.id( workout.getId() );
-        workout1.name( workout.getName() );
-        workout1.owner( userJpaEntityToUser( workout.getOwner() ) );
-        workout1.createdAt( workout.getCreatedAt() );
+        workout.id( entity.getId() );
+        workout.name( entity.getName() );
+        workout.owner( userJpaEntityToUser( entity.getOwner() ) );
+        workout.createdAt( entity.getCreatedAt() );
 
-        return workout1.build();
+        return workout.build();
     }
 
     protected UserJpaEntity userToUserJpaEntity(User user) {
