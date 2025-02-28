@@ -1,6 +1,9 @@
 package com.workout_planner_service.application;
 
-import com.workout_planner_service.application.exceptions.ExerciseCategoryNotFoundException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.fge.jsonpatch.JsonPatch;
+import com.github.fge.jsonpatch.JsonPatchException;
 import com.workout_planner_service.application.exceptions.UserNotFoundException;
 import com.workout_planner_service.application.ports.ExerciseCategoryEntityMapper;
 import com.workout_planner_service.application.ports.inbound.ExerciseCategoryUseCase;
@@ -25,8 +28,9 @@ public class ExerciseCategoryUseCaseImpl
   public ExerciseCategoryUseCaseImpl(
       UserPersistencePort userPersistencePort,
       ExerciseCategoryEntityMapper mapper,
-      ExerciseCategoryPersistencePort persistencePort) {
-    super(persistencePort, mapper);
+      ExerciseCategoryPersistencePort persistencePort,
+      ObjectMapper objectMapper) {
+    super(persistencePort, mapper, objectMapper, ExerciseCategory.class);
     this.userPersistencePort = userPersistencePort;
     this.mapper = mapper;
     this.persistencePort = persistencePort;
@@ -50,18 +54,13 @@ public class ExerciseCategoryUseCaseImpl
 
   @Override
   public void patchExerciseCategory(
-      @NonNull ExerciseCategoryDTO dto, @NonNull UUID id, @NonNull UUID userId) {
+      @NonNull JsonPatch patch, @NonNull UUID id, @NonNull UUID userId)
+      throws JsonPatchException, JsonProcessingException {
     var user = userPersistencePort.getById(userId);
     if (user.isEmpty()) {
       throw new UserNotFoundException("User with ID " + userId + " not found");
     }
 
-    var entity = this.persistencePort.getById(id);
-    if (entity.isEmpty()) {
-      throw new ExerciseCategoryNotFoundException("Category with ID " + id + " not found");
-    }
-
-    // entity.get().setName(dto.getName());
-    this.patch(dto, id);
+    this.patch(patch, id);
   }
 }

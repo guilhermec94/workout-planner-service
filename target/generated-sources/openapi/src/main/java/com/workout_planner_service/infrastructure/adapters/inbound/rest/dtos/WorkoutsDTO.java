@@ -25,7 +25,7 @@ import jakarta.annotation.Generated;
  */
 @lombok.Builder @lombok.Getter
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-02-26T08:08:05.944939600Z[Europe/Lisbon]", comments = "Generator version: 7.11.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-02-27T15:09:49.411941100Z[Europe/Lisbon]", comments = "Generator version: 7.11.0")
 public class WorkoutsDTO {
 
   @lombok.Builder.Default

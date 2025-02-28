@@ -5,8 +5,14 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.github.fge.jsonpatch.JsonPatch;
+import com.github.fge.jsonpatch.JsonPatchException;
+import com.workout_planner_service.application.exceptions.EntityNotFoundException;
 import com.workout_planner_service.application.exceptions.UserNotFoundException;
-import com.workout_planner_service.application.exceptions.WorkoutNotFoundException;
 import com.workout_planner_service.application.ports.WorkoutEntityMapper;
 import com.workout_planner_service.application.ports.outbound.persistence.UserPersistencePort;
 import com.workout_planner_service.application.ports.outbound.persistence.WorkoutPersistencePort;
@@ -22,14 +28,22 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class WorkoutUseCaseImplTest {
+class WorkoutUseCaseImplTest extends TestImplBase<WorkoutDTO> {
 
   @Mock private WorkoutEntityMapper entityMapper;
   @Mock private UserPersistencePort userPersistencePort;
   @Mock private WorkoutPersistencePort workoutPersistencePort;
+
+  @Spy
+  private ObjectMapper objectMapper =
+      new ObjectMapper()
+          .registerModule(new JavaTimeModule())
+          .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
   @InjectMocks private WorkoutUseCaseImpl workoutUseCaseImpl;
 
   @Test
@@ -279,22 +293,31 @@ class WorkoutUseCaseImplTest {
     var workoutSaved =
         Workout.builder()
             .id(UUID.randomUUID())
-            .name("W1Patch")
+            .name("W1")
             .owner(user)
             .createdAt(OffsetDateTime.now())
             .build();
 
     var workoutDTO =
         WorkoutDTO.builder()
+            .id(workoutSaved.getId())
             .name("W1")
-            .createdAt(OffsetDateTime.from(OffsetDateTime.now()))
+            .createdAt(workoutSaved.getCreatedAt())
             .build();
+
+    WorkoutDTO updatedWorkout =
+        WorkoutDTO.builder()
+            .id(workoutSaved.getId())
+            .name("W1Patch")
+            .createdAt(workoutSaved.getCreatedAt())
+            .build();
+    JsonPatch patch = this.generatePatch(workoutDTO, updatedWorkout);
 
     when(userPersistencePort.getById(any())).thenReturn(Optional.empty());
 
     /// When
     ThrowableAssert.ThrowingCallable throwingCallable =
-        () -> workoutUseCaseImpl.patchWorkout(workoutDTO, workoutSaved.getId(), user.getId());
+        () -> workoutUseCaseImpl.patchWorkout(patch, workoutSaved.getId(), user.getId());
 
     // Then
     assertThatThrownBy(throwingCallable).isInstanceOf(UserNotFoundException.class);
@@ -315,30 +338,39 @@ class WorkoutUseCaseImplTest {
     var workoutSaved =
         Workout.builder()
             .id(UUID.randomUUID())
-            .name("W1Patch")
+            .name("W1")
             .owner(user)
             .createdAt(OffsetDateTime.now())
             .build();
 
     var workoutDTO =
         WorkoutDTO.builder()
+            .id(workoutSaved.getId())
             .name("W1")
-            .createdAt(OffsetDateTime.from(OffsetDateTime.now()))
+            .createdAt(workoutSaved.getCreatedAt())
             .build();
+
+    WorkoutDTO updatedWorkout =
+        WorkoutDTO.builder()
+            .id(workoutSaved.getId())
+            .name("W1Patch")
+            .createdAt(workoutSaved.getCreatedAt())
+            .build();
+    JsonPatch patch = this.generatePatch(workoutDTO, updatedWorkout);
 
     when(userPersistencePort.getById(any())).thenReturn(Optional.ofNullable(user));
     when(workoutPersistencePort.getById(workoutSaved.getId())).thenReturn(Optional.empty());
 
     /// When
     ThrowableAssert.ThrowingCallable throwingCallable =
-        () -> workoutUseCaseImpl.patchWorkout(workoutDTO, workoutSaved.getId(), user.getId());
+        () -> workoutUseCaseImpl.patchWorkout(patch, workoutSaved.getId(), user.getId());
 
     // Then
-    assertThatThrownBy(throwingCallable).isInstanceOf(WorkoutNotFoundException.class);
+    assertThatThrownBy(throwingCallable).isInstanceOf(EntityNotFoundException.class);
   }
 
   @Test
-  void shouldPatchWorkoutSuccessfully() {
+  void shouldPatchWorkoutSuccessfully() throws JsonPatchException, JsonProcessingException {
     // Given
     var userId = UUID.randomUUID();
     var user =
@@ -352,24 +384,32 @@ class WorkoutUseCaseImplTest {
     var workoutSaved =
         Workout.builder()
             .id(UUID.randomUUID())
-            .name("W1Patch")
+            .name("W1")
             .owner(user)
             .createdAt(OffsetDateTime.now())
             .build();
 
     var workoutDTO =
         WorkoutDTO.builder()
+            .id(workoutSaved.getId())
             .name("W1")
-            .createdAt(OffsetDateTime.from(OffsetDateTime.now()))
+            .createdAt(workoutSaved.getCreatedAt())
             .build();
+
+    WorkoutDTO updatedWorkout =
+        WorkoutDTO.builder()
+            .id(workoutSaved.getId())
+            .name("W1Patch")
+            .createdAt(workoutSaved.getCreatedAt())
+            .build();
+    JsonPatch patch = generatePatch(workoutDTO, updatedWorkout);
 
     when(userPersistencePort.getById(any())).thenReturn(Optional.ofNullable(user));
     when(workoutPersistencePort.getById(workoutSaved.getId()))
         .thenReturn(Optional.of(workoutSaved));
-    when(workoutPersistencePort.save(workoutSaved)).thenReturn(workoutSaved);
 
     // When
-    workoutUseCaseImpl.patchWorkout(workoutDTO, workoutSaved.getId(), user.getId());
+    workoutUseCaseImpl.patchWorkout(patch, workoutSaved.getId(), user.getId());
 
     // Then
     verify(userPersistencePort, times(1)).getById(any());

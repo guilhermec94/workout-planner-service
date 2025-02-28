@@ -1,5 +1,8 @@
 package com.workout_planner_service.application.ports.inbound;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.github.fge.jsonpatch.JsonPatch;
+import com.github.fge.jsonpatch.JsonPatchException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -13,7 +16,8 @@ public interface BaseUseCase<T> {
 
   T create(@NonNull T dto);
 
-  void patch(@NonNull T dto, @NonNull UUID id);
+  void patch(@NonNull JsonPatch patch, @NonNull UUID id)
+      throws JsonPatchException, JsonProcessingException;
 
   void delete(@NonNull UUID id);
 }

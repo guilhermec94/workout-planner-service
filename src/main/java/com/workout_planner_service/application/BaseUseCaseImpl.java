@@ -1,6 +1,11 @@
 package com.workout_planner_service.application;
 
-import com.workout_planner_service.application.exceptions.WorkoutNotFoundException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.fge.jsonpatch.JsonPatch;
+import com.github.fge.jsonpatch.JsonPatchException;
+import com.workout_planner_service.application.exceptions.EntityNotFoundException;
 import com.workout_planner_service.application.ports.BaseEntityMapper;
 import com.workout_planner_service.application.ports.inbound.BaseUseCase;
 import com.workout_planner_service.application.ports.outbound.persistence.BasePersistencePort;
@@ -16,6 +21,8 @@ import org.springframework.stereotype.Service;
 public class BaseUseCaseImpl<T, E> implements BaseUseCase<T> {
   private final BasePersistencePort<E> persistencePort;
   private final BaseEntityMapper<T, E> mapper;
+  private final ObjectMapper objectMapper;
+  private final Class<E> entityClass;
 
   @Override
   public List<T> getAll() {
@@ -33,15 +40,20 @@ public class BaseUseCaseImpl<T, E> implements BaseUseCase<T> {
     return mapper.toDTO(this.persistencePort.save(entity));
   }
 
-  // TODO: implement jsonpatch
   @Override
-  public void patch(@NonNull T dto, @NonNull UUID id) {
-    var entity = this.persistencePort.getById(id);
-    if (entity.isEmpty()) { // TODO: how to set the Class name here instead of entity?
-      throw new WorkoutNotFoundException("Entity with ID " + id + " not found");
+  public void patch(@NonNull JsonPatch patch, @NonNull UUID id)
+      throws JsonPatchException, JsonProcessingException {
+    var entityOptional = this.persistencePort.getById(id);
+    if (entityOptional.isEmpty()) { // TODO: how to set the Class name here instead of entity?
+      throw new EntityNotFoundException("Entity with ID " + id + " not found");
     }
 
-    this.persistencePort.save(entity.get());
+    E entity = entityOptional.get();
+    JsonNode node = objectMapper.convertValue(entity, JsonNode.class);
+    JsonNode patchedNode = patch.apply(node);
+    E patchedEntity = objectMapper.treeToValue(patchedNode, entityClass);
+
+    this.persistencePort.save(patchedEntity);
   }
 
   @Override

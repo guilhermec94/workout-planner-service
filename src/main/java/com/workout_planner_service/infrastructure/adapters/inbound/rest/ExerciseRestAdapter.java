@@ -1,7 +1,10 @@
 package com.workout_planner_service.infrastructure.adapters.inbound.rest;
 
+import com.github.fge.jsonpatch.JsonPatch;
+import com.github.fge.jsonpatch.JsonPatchException;
 import com.workout_planner_service.application.ports.inbound.ExerciseUseCase;
 import com.workout_planner_service.infrastructure.adapters.inbound.rest.dtos.ExerciseDTO;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -33,8 +36,10 @@ public class ExerciseRestAdapter {
   }
 
   @PatchMapping(value = "/exercises/{id}")
-  public void patch(@PathVariable UUID id, @RequestBody ExerciseDTO dto) {
-    exerciseUseCase.patchExercise(dto, id, UUID.fromString("2e97b683-1b68-406d-b101-533c347e67ea"));
+  public void patch(@PathVariable UUID id, @RequestBody JsonPatch patch)
+      throws JsonPatchException, IOException {
+    exerciseUseCase.patchExercise(
+        patch, id, UUID.fromString("2e97b683-1b68-406d-b101-533c347e67ea"));
   }
 
   @DeleteMapping(value = "/exercises/{id}")

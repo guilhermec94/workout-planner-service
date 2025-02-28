@@ -1,5 +1,8 @@
 package com.workout_planner_service.infrastructure.adapters.inbound.rest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.github.fge.jsonpatch.JsonPatch;
+import com.github.fge.jsonpatch.JsonPatchException;
 import com.workout_planner_service.application.ports.inbound.WorkoutUseCase;
 import com.workout_planner_service.infrastructure.adapters.inbound.rest.dtos.WorkoutDTO;
 import java.util.List;
@@ -33,8 +36,9 @@ public class WorkoutRestAdapter {
   }
 
   @PatchMapping(value = "/workouts/{id}")
-  public void patch(@PathVariable UUID id, @RequestBody WorkoutDTO dto) {
-    workoutUseCase.patchWorkout(dto, id, UUID.fromString("2e97b683-1b68-406d-b101-533c347e67ea"));
+  public void patch(@PathVariable UUID id, @RequestBody JsonPatch patch)
+      throws JsonPatchException, JsonProcessingException {
+    workoutUseCase.patchWorkout(patch, id, UUID.fromString("2e97b683-1b68-406d-b101-533c347e67ea"));
   }
 
   @DeleteMapping(value = "/workouts/{id}")

@@ -5,6 +5,12 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.github.fge.jsonpatch.JsonPatch;
+import com.github.fge.jsonpatch.JsonPatchException;
+import com.workout_planner_service.application.exceptions.EntityNotFoundException;
 import com.workout_planner_service.application.exceptions.ExerciseCategoryNotFoundException;
 import com.workout_planner_service.application.exceptions.UserNotFoundException;
 import com.workout_planner_service.application.ports.ExerciseEntityMapper;
@@ -15,6 +21,7 @@ import com.workout_planner_service.domain.model.Exercise;
 import com.workout_planner_service.domain.model.ExerciseCategory;
 import com.workout_planner_service.domain.model.User;
 import com.workout_planner_service.infrastructure.adapters.inbound.rest.dtos.ExerciseDTO;
+import java.io.IOException;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -24,15 +31,23 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class ExerciseUseCaseImplTest {
+class ExerciseUseCaseImplTest extends TestImplBase<ExerciseDTO> {
 
   @Mock private ExerciseEntityMapper entityMapper;
   @Mock private UserPersistencePort userPersistencePort;
   @Mock private ExerciseCategoryPersistencePort exerciseCategoryPersistencePort;
   @Mock private ExercisePersistencePort exercisePersistencePort;
+
+  @Spy
+  private ObjectMapper objectMapper =
+      new ObjectMapper()
+          .registerModule(new JavaTimeModule())
+          .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
   @InjectMocks private ExerciseUseCaseImpl exerciseUseCaseImpl;
 
   @Test
@@ -368,6 +383,15 @@ class ExerciseUseCaseImplTest {
             .owner(user)
             .createdAt(OffsetDateTime.now())
             .build();
+
+    var newCategory =
+        ExerciseCategory.builder()
+            .id(UUID.randomUUID())
+            .name("C2")
+            .owner(user)
+            .createdAt(OffsetDateTime.now())
+            .build();
+
     var exerciseSaved =
         Exercise.builder()
             .id(UUID.randomUUID())
@@ -376,18 +400,29 @@ class ExerciseUseCaseImplTest {
             .owner(user)
             .createdAt(OffsetDateTime.now())
             .build();
+
     var exerciseDTO =
         ExerciseDTO.builder()
+            .id(exerciseSaved.getId())
             .name("E1")
             .categoryId(category.getId())
-            .createdAt(OffsetDateTime.from(OffsetDateTime.now()))
+            .createdAt(exerciseSaved.getCreatedAt())
             .build();
+
+    ExerciseDTO updatedExercise =
+        ExerciseDTO.builder()
+            .id(exerciseSaved.getId())
+            .name("E1Patch")
+            .categoryId(newCategory.getId())
+            .createdAt(exerciseSaved.getCreatedAt())
+            .build();
+    JsonPatch patch = generatePatch(exerciseDTO, updatedExercise);
 
     when(userPersistencePort.getById(any())).thenReturn(Optional.empty());
 
     /// When
     ThrowableAssert.ThrowingCallable throwingCallable =
-        () -> exerciseUseCaseImpl.patchExercise(exerciseDTO, exerciseSaved.getId(), user.getId());
+        () -> exerciseUseCaseImpl.patchExercise(patch, exerciseSaved.getId(), user.getId());
 
     // Then
     assertThatThrownBy(throwingCallable).isInstanceOf(UserNotFoundException.class);
@@ -412,6 +447,15 @@ class ExerciseUseCaseImplTest {
             .owner(user)
             .createdAt(OffsetDateTime.now())
             .build();
+
+    var newCategory =
+        ExerciseCategory.builder()
+            .id(UUID.randomUUID())
+            .name("C2")
+            .owner(user)
+            .createdAt(OffsetDateTime.now())
+            .build();
+
     var exerciseSaved =
         Exercise.builder()
             .id(UUID.randomUUID())
@@ -420,19 +464,30 @@ class ExerciseUseCaseImplTest {
             .owner(user)
             .createdAt(OffsetDateTime.now())
             .build();
+
     var exerciseDTO =
         ExerciseDTO.builder()
+            .id(exerciseSaved.getId())
             .name("E1")
             .categoryId(category.getId())
-            .createdAt(OffsetDateTime.from(OffsetDateTime.now()))
+            .createdAt(exerciseSaved.getCreatedAt())
             .build();
 
+    ExerciseDTO updatedExercise =
+        ExerciseDTO.builder()
+            .id(exerciseSaved.getId())
+            .name("E1Patch")
+            .categoryId(newCategory.getId())
+            .createdAt(exerciseSaved.getCreatedAt())
+            .build();
+    JsonPatch patch = generatePatch(exerciseDTO, updatedExercise);
+
     when(userPersistencePort.getById(any())).thenReturn(Optional.ofNullable(user));
-    when(exerciseCategoryPersistencePort.getById(category.getId())).thenReturn(Optional.empty());
+    when(exerciseCategoryPersistencePort.getById(newCategory.getId())).thenReturn(Optional.empty());
 
     /// When
     ThrowableAssert.ThrowingCallable throwingCallable =
-        () -> exerciseUseCaseImpl.patchExercise(exerciseDTO, exerciseSaved.getId(), user.getId());
+        () -> exerciseUseCaseImpl.patchExercise(patch, exerciseSaved.getId(), user.getId());
 
     // Then
     assertThatThrownBy(throwingCallable).isInstanceOf(ExerciseCategoryNotFoundException.class);
@@ -457,6 +512,15 @@ class ExerciseUseCaseImplTest {
             .owner(user)
             .createdAt(OffsetDateTime.now())
             .build();
+
+    var newCategory =
+        ExerciseCategory.builder()
+            .id(UUID.randomUUID())
+            .name("C2")
+            .owner(user)
+            .createdAt(OffsetDateTime.now())
+            .build();
+
     var exerciseSaved =
         Exercise.builder()
             .id(UUID.randomUUID())
@@ -465,28 +529,39 @@ class ExerciseUseCaseImplTest {
             .owner(user)
             .createdAt(OffsetDateTime.now())
             .build();
+
     var exerciseDTO =
         ExerciseDTO.builder()
+            .id(exerciseSaved.getId())
             .name("E1")
             .categoryId(category.getId())
-            .createdAt(OffsetDateTime.from(OffsetDateTime.now()))
+            .createdAt(exerciseSaved.getCreatedAt())
             .build();
 
+    ExerciseDTO updatedExercise =
+        ExerciseDTO.builder()
+            .id(exerciseSaved.getId())
+            .name("E1Patch")
+            .categoryId(newCategory.getId())
+            .createdAt(exerciseSaved.getCreatedAt())
+            .build();
+    JsonPatch patch = generatePatch(exerciseDTO, updatedExercise);
+
     when(userPersistencePort.getById(any())).thenReturn(Optional.ofNullable(user));
-    when(exerciseCategoryPersistencePort.getById(category.getId()))
+    when(exerciseCategoryPersistencePort.getById(newCategory.getId()))
         .thenReturn(Optional.of(category));
     when(exercisePersistencePort.getById(exerciseSaved.getId())).thenReturn(Optional.empty());
 
     /// When
     ThrowableAssert.ThrowingCallable throwingCallable =
-        () -> exerciseUseCaseImpl.patchExercise(exerciseDTO, exerciseSaved.getId(), user.getId());
+        () -> exerciseUseCaseImpl.patchExercise(patch, exerciseSaved.getId(), user.getId());
 
     // Then
-    assertThatThrownBy(throwingCallable).isInstanceOf(ExerciseCategoryNotFoundException.class);
+    assertThatThrownBy(throwingCallable).isInstanceOf(EntityNotFoundException.class);
   }
 
   @Test
-  void shouldPatchExerciseCategorySuccessfully() {
+  void shouldPatchExerciseCategorySuccessfully() throws JsonPatchException, IOException {
     // Given
     var userId = UUID.randomUUID();
     var user =
@@ -504,6 +579,15 @@ class ExerciseUseCaseImplTest {
             .owner(user)
             .createdAt(OffsetDateTime.now())
             .build();
+
+    var newCategory =
+        ExerciseCategory.builder()
+            .id(UUID.randomUUID())
+            .name("C2")
+            .owner(user)
+            .createdAt(OffsetDateTime.now())
+            .build();
+
     var exerciseSaved =
         Exercise.builder()
             .id(UUID.randomUUID())
@@ -512,22 +596,32 @@ class ExerciseUseCaseImplTest {
             .owner(user)
             .createdAt(OffsetDateTime.now())
             .build();
+
     var exerciseDTO =
         ExerciseDTO.builder()
+            .id(exerciseSaved.getId())
             .name("E1")
             .categoryId(category.getId())
-            .createdAt(OffsetDateTime.from(OffsetDateTime.now()))
+            .createdAt(exerciseSaved.getCreatedAt())
             .build();
 
+    ExerciseDTO updatedExercise =
+        ExerciseDTO.builder()
+            .id(exerciseSaved.getId())
+            .name("E1Patch")
+            .categoryId(newCategory.getId())
+            .createdAt(exerciseSaved.getCreatedAt())
+            .build();
+    JsonPatch patch = generatePatch(exerciseDTO, updatedExercise);
+
     when(userPersistencePort.getById(any())).thenReturn(Optional.ofNullable(user));
-    when(exerciseCategoryPersistencePort.getById(category.getId()))
+    when(exerciseCategoryPersistencePort.getById(newCategory.getId()))
         .thenReturn(Optional.of(category));
     when(exercisePersistencePort.getById(exerciseSaved.getId()))
         .thenReturn(Optional.of(exerciseSaved));
-    when(exercisePersistencePort.save(exerciseSaved)).thenReturn(exerciseSaved);
 
     // When
-    exerciseUseCaseImpl.patchExercise(exerciseDTO, exerciseSaved.getId(), user.getId());
+    exerciseUseCaseImpl.patchExercise(patch, exerciseSaved.getId(), user.getId());
 
     // Then
     verify(userPersistencePort, times(1)).getById(any());

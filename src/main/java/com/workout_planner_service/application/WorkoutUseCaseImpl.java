@@ -1,5 +1,9 @@
 package com.workout_planner_service.application;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.fge.jsonpatch.JsonPatch;
+import com.github.fge.jsonpatch.JsonPatchException;
 import com.workout_planner_service.application.exceptions.UserNotFoundException;
 import com.workout_planner_service.application.ports.WorkoutEntityMapper;
 import com.workout_planner_service.application.ports.inbound.WorkoutUseCase;
@@ -24,8 +28,9 @@ public class WorkoutUseCaseImpl extends BaseUseCaseImpl<WorkoutDTO, Workout>
   public WorkoutUseCaseImpl(
       WorkoutPersistencePort persistencePort,
       UserPersistencePort userPersistencePort,
-      WorkoutEntityMapper mapper) {
-    super(persistencePort, mapper);
+      WorkoutEntityMapper mapper,
+      ObjectMapper objectMapper) {
+    super(persistencePort, mapper, objectMapper, Workout.class);
     this.persistencePort = persistencePort;
     this.userPersistencePort = userPersistencePort;
     this.mapper = mapper;
@@ -47,18 +52,13 @@ public class WorkoutUseCaseImpl extends BaseUseCaseImpl<WorkoutDTO, Workout>
   }
 
   @Override
-  public void patchWorkout(@NonNull WorkoutDTO dto, @NonNull UUID id, @NonNull UUID userId) {
+  public void patchWorkout(@NonNull JsonPatch patch, @NonNull UUID id, @NonNull UUID userId)
+      throws JsonPatchException, JsonProcessingException {
     var user = this.userPersistencePort.getById(userId);
     if (user.isEmpty()) {
       throw new UserNotFoundException("User with ID " + userId + " not found");
     }
 
-    /*var entity = this.workoutPersistencePort.getWorkoutById(id);
-    if (entity.isEmpty()) {
-      throw new WorkoutNotFoundException("Workout with ID " + id + " not found");
-    }
-
-    entity.get().setName(workout.getName());*/
-    this.patch(dto, id);
+    this.patch(patch, id);
   }
 }
